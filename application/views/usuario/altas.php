@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/altas.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/usuario/altas.css'); ?>">
     <title>Formulario de Creación de Usuario</title>
 </head>
 <body>
+    <?php $this->load->view('navbar'); ?>
     <section>
         <div class="form-box">
             <div class="form-value">
                 <h2>Crear Usuario</h2>
-                <form id="userForm" action="/ruta_del_servidor_para_guardar_usuario" method="post" onsubmit="return validateForm()">
+                <form id="userForm" action="<?= site_url('AltasUsuarioController/crear_usuario') ?>" method="post" onsubmit="return validateForm()">
+                    <div class="inputbox">
+                        <i class="fa-solid fa-person"></i>
+                        <input type="text" id="person" name="person" required>
+                        <label for="username">Nombre de Empleado</label>
+                    </div>
                     <div class="inputbox">
                         <i class="fa-solid fa-user"></i>
                         <input type="text" id="username" name="username" required>

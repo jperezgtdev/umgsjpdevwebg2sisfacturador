@@ -3,6 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class LoginController extends CI_Controller {
 
+    public function __construct() {
+        parent::__construct();
+        $this->load->model('UsuarioModel'); // Cargar el modelo UsuarioModel
+    }
     public function index() {
 
         $this->load->view('Login');
@@ -12,9 +16,10 @@ class LoginController extends CI_Controller {
 
         $usuario = $this->input->post('usuario');
         $clave = $this->input->post('clave');
+        $encrypted_clave = md5($clave);
     
         $this->load->model('UsuarioModel'); 
-        $usuario_valido = $this->UsuarioModel->validar_usuario($usuario, $clave);
+        $usuario_valido = $this->UsuarioModel->validar_usuario($usuario, $encrypted_clave);
     
         if ($usuario_valido) {
             $id_usuario = $this->UsuarioModel->obtener_id_usuario_por_nombre($usuario);

@@ -1,0 +1,37 @@
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  nav {
+    background-color: #333; /* Color de fondo de la barra de navegación */
+    padding: 10px;
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    display: inline-block;
+    margin-right: 20px; /* Espacio entre los elementos de navegación */
+  }
+  
+  li:last-child {
+    margin-right: 0; /* Elimina el margen derecho del último elemento */
+  }
+  
+  a {
+    text-decoration: none;
+    color: white; /* Color del texto en los enlaces */
+    padding: 5px 10px; /* Espacio interno en cada enlace */
+  }
+  
+  a:hover {
+    background-color: #555; /* Color de fondo al pasar el ratón sobre los enlaces */
+  }
+  
