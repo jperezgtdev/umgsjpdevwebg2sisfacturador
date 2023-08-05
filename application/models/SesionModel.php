@@ -19,7 +19,6 @@ class SesionModel extends CI_Model {
         $query = $this->db->get('sesiones');
 
         if ($query->num_rows() > 0) {
-            // Actualizar la fecha de actualización de la sesión para mantenerla activa
             $this->db->where('token', $token);
             $this->db->update('sesiones', array('fecha_actualizacion' => date('Y-m-d H:i:s')));
 
