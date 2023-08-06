@@ -10,11 +10,12 @@
 </head>
 
 <body>
+    <?php $this->load->view('navbar'); ?>
     <header>
         <h1>Consulta de Usuarios</h1>
     </header>
     <main>
-        <form class="form-group" action="" method="post">
+        <form class="form-group" action="<?= site_url('ConsultaUsuarioController/buscarPorNombre'); ?>" method="post">
             <label for="firstName">Nombre:</label>
             <input type="text" id="firstName" name="firstName" placeholder="Ingrese el nombre">
             <button type="submit">Buscar</button>

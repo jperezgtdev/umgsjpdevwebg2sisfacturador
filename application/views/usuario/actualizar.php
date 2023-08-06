@@ -21,13 +21,28 @@
                 </div>
                 <br>
                 <div>
-                    <label for="editRol">Rol:</label>
-                    <input type="text" id="editRol" name="editRol" value="<?php echo $usuario->rol; ?>" placeholder="Ingrese el rol del usuario">
+                    <i id="icon-select" class="fa-solid fa-users"></i>
+                    <select id="editRol" name="editRol" required>
+                        <option disabled>elija un rol</option>
+                        <option value="administrador" <?php if ($usuario->id_rol == 1) echo 'selected'; ?>>Administrador</option>
+                        <option value="usuario" <?php if ($usuario->id_rol == 2) echo 'selected'; ?>>Usuario</option>
+                    </select>      
                 </div>
                 <br>
                 <div>
-                    <label for="editClave">Clave:</label>
-                    <input type="password" id="editClave" name="editClave" value="<?php echo $usuario->clave; ?>" placeholder="Ingrese la clave">
+                    <label for="editClave">Ingrese clave actual</label>
+                    <input type="password" id="claveIngresado" name="claveIngresado" placeholder="Ingrese la clave">
+                    <input id="clave" name="clave" type="hidden" value="<?php echo $usuario->clave; ?>" />
+                </div>
+                <br>
+                <div>
+                    <label for="editClave">Nueva clave:</label>
+                    <input type="password" id="editClave" name="editClave" placeholder="Ingrese la clave">
+                </div>
+                <br>
+                <div>
+                    <label for="editClave">confirmar clave: </label>
+                    <input type="password" id="confirmarClave" name="confirmarClave" placeholder="Ingrese la clave">
                 </div>
                 <br>
                 <button type="submit">Guardar Cambios</button>
