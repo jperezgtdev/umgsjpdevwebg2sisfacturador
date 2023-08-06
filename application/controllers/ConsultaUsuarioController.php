@@ -7,9 +7,10 @@ class ConsultaUsuarioController extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('modeloconsulta');
-        //$this->load->helper('url'); // Carga el URL helper
+        $this->load->helper('autenticacion');
     }
     public function index() {
+        verificar_autenticacion($this);
         $data['prueba_data'] = $this->modeloconsulta->getUsuarioData();
         $this->load->view('usuario/consulta', $data);
     }
