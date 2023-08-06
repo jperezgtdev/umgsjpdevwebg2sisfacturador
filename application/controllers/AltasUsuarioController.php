@@ -7,12 +7,13 @@ class AltasUsuarioController extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        // Cargamos el modelo para interactuar con la base de datos
+     
         $this->load->model('UsuarioModel');
+        $this->load->helper('autenticacion');
     }
 
     public function index() {
-
+        verificar_autenticacion($this);
         $this->load->view('usuario/altas');
     }
 

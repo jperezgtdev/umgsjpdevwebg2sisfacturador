@@ -5,7 +5,7 @@ class LoginController extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('UsuarioModel'); // Cargar el modelo UsuarioModel
+        $this->load->model('UsuarioModel'); 
     }
     public function index() {
 
