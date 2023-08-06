@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class modeloconsulta extends CI_Model {
 
-    public function getPruebaData() {
+    public function getUsuarioData() {
         // Realizar la consulta para obtener los datos de la tabla "Usuario" junto con el nombre de rol
         $this->db->select('u.id_usuario, u.usuario, r.rol, u.clave ');
         $this->db->from('usuario u');

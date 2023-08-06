@@ -1,22 +1,21 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Controlador extends CI_Controller {
+class ConsultaUsuarioController extends CI_Controller {
 
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper('url'); // Carga el URL helper
+        $this->load->model('modeloconsulta');
+        //$this->load->helper('url'); // Carga el URL helper
     }
     public function index() {
-        $this->load->model('modeloconsulta');
-        $data['prueba_data'] = $this->modeloconsulta->getPruebaData();
+        $data['prueba_data'] = $this->modeloconsulta->getUsuarioData();
         $this->load->view('usuario/consulta', $data);
     }
 
 
     public function obtenerDatos($idUsuario) {
-        $this->load->model('modeloconsulta');
         $data['usuario'] = $this->modeloconsulta->obtenerUsuarioPorId($idUsuario);
         $this->load->view('usuario/actualizar', $data);
     }
@@ -31,9 +30,6 @@ class Controlador extends CI_Controller {
         $nuevoRol = $this->input->post('editRol');
         $nuevaClave = $this->input->post('editClave');
     
-        // Cargar el modelo
-        $this->load->model('modeloconsulta');
-    
         // Actualizar el usuario en la tabla usuario
         $this->modeloconsulta->actualizarUsuario($id_usuario, $nuevoUsuario, $nuevaClave);
     
@@ -41,8 +37,9 @@ class Controlador extends CI_Controller {
         $this->modeloconsulta->actualizarRol($id_usuario, $nuevoRol);
     
         // Redireccionar a la página de consulta o a donde desees
-        return redirect()->to($referer);
+        return redirect('DashboardController');
     }
     
     
 }
+?>

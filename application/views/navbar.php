@@ -11,6 +11,8 @@
     <ul>
       <li><a href="<?= site_url('AltasUsuarioController/index') ?>">Alta</a></li>
       <li><a href="<?= site_url('LoginController/index')?>">Login</a></li>
+      <li><a href="<?= site_url('ConsultaUsuarioController/index')?>">Consulta</a></li>
+      <li><a href="<?= site_url('LogoutController/logout')?>">Cerrar Sesion</a></li>
       <!-- Agrega aquí más elementos de navegación si los necesitas -->
     </ul>
   </nav>
