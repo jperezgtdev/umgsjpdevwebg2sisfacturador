@@ -16,6 +16,11 @@ class ConsultaUsuarioController extends CI_Controller {
         $this->load->view('usuario/consulta', $data);
     }
 
+    public function desactivarUsuario($idUsuario) {
+        $data['usuario'] = $this->modeloconsulta->bajaUsuario($idUsuario);
+        $data['prueba_data'] = $this->modeloconsulta->getUsuarioData();
+        $this->load->view('usuario/consulta', $data);    }
+
     public function buscarPorNombre() {
         $nombre = $this->input->post('firstName');
         $data['prueba_data'] = $this->modeloconsulta->getUsuariosPorNombre($nombre);

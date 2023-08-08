@@ -47,7 +47,9 @@
                         <td><?php echo $row->clave; ?></td>
                         <td class="td_boton">
                             <a href="<?= site_url('ConsultaUsuarioController/obtenerDatos/' . $row->id_usuario); ?>" class="edit-btn">Editar</a>
-                            <button class="delete-btn">Eliminar</button>
+                            
+                            <a href="<?= site_url('ConsultaUsuarioController/desactivarUsuario/' . $row->id_usuario); ?>" class="delete-btn">Eliminar</a>
+
                         </td>       
                     </tr>
                     <?php endforeach; ?> 

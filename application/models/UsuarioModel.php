@@ -1,8 +1,10 @@
 <?php
 class UsuarioModel extends CI_Model {
     public function validar_usuario($usuario, $clave) {
+        $estadoUsuario = 'Activo';
         $this->db->where('usuario', $usuario);
         $this->db->where('clave', $clave);
+        $this->db->where('estado',$estadoUsuario);
         $query = $this->db->get('Usuario');
 
         if ($query->num_rows() > 0) {
