@@ -11,14 +11,12 @@
 
 <body>
     <?php $this->load->view('navbar'); ?>
-    <header>
-        <h1>Consulta de Usuarios</h1>
-    </header>
+    
     <main>
         <form class="form-group" action="<?= site_url('ConsultaUsuarioController/buscarPorNombre'); ?>" method="post">
             <label for="firstName">Nombre:</label>
             <input type="text" id="firstName" name="firstName" placeholder="Ingrese el nombre">
-            <button type="submit">Buscar</button>
+            <button type="submit" class="rounded-button">Buscar</button>
         </form>
         <br>
         <div id="userList">
@@ -36,6 +34,10 @@
                         <th>
                             <i class="fa-solid fa-lock" style="color: #e63946;"></i>
                             Contraseña
+                        </th>
+                        <th>
+                            <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
+                            Acciones
                         </th>
                     </tr>
                 </thead>

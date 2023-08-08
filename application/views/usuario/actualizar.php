@@ -45,7 +45,7 @@
                     <input type="password" id="confirmarClave" name="confirmarClave" placeholder="Ingrese la clave">
                 </div>
                 <br>
-                <button type="submit">Guardar Cambios</button>
+                <button type="submit" class="rounded-button">Editar</button>
             </form>
         <?php } else { ?>
             <p>No se encontró el usuario.</p>

@@ -1,10 +1,10 @@
 /* Estilos generales */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
- 
     flex-direction: column;
     min-height: 100vh; /* Asegura que el contenido ocupe al menos el 100% del viewport */
 }
@@ -12,14 +12,14 @@ body {
 header {
     background-color: #1d3557;
     color: #fff;
-    padding: 10px;
+    padding: 1px;
     text-align: center;
 }
 
 main {
     flex: 1; /* Permite que el contenido ocupe el espacio disponible restante */
     max-width: 800px;
-    margin: 20px auto;
+    margin: 40px auto;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -29,6 +29,7 @@ main {
 
 footer {
     text-align: center;
+    margin: -18px 0px;
     padding: 10px;
     background-color: #1d3557;
     color: #fff;
@@ -46,21 +47,16 @@ form {
     margin-bottom: 20px;
 }
 
-label,
-input,
-button {
-    margin-bottom: 10px;
-    
-}
 
-input[type="text"] {
-    padding: 8px;
+
+input {
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-button {
-    padding: 8px 15px;
+.rounded-button {
+    padding: 6px 15px;
     background-color: #1d3557;
     color: #fff;
     border: none;
@@ -72,7 +68,7 @@ button {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 th, td {
@@ -83,40 +79,26 @@ th, td {
 
 thead {
     background-color: #f1faee;
+    text-align: center;
 }
 
-.user-item td:last-child {
-    display: flex;
-    gap: 10px;
-}
 
-.edit-btn,
-.delete-btn {
-    padding: 6px 12px;
+.edit-btn {
+    padding: 7px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.edit-btn {
     background-color: #007bff;
     color: #fff;
 }
 
 .delete-btn {
+    padding: 4px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
     background-color: #dc3545;
     color: #fff;
 }
 
 /* Otros estilos */
-h1 {
-    margin-top: 0;
-}
-
-p {
-    margin: 0;
-}
-
-.td_boton {
-    text-align: center; /* Alinea el contenido a la derecha */
-}

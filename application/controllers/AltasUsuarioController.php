@@ -57,7 +57,7 @@ class AltasUsuarioController extends CI_Controller
                 }
 
                 // Generar un hash de la contraseña
-                $encrypted_password = md5($password);
+                $encrypted_password = sha1($password);
 
                 // Obtener el usuario que está creando al nuevo usuario (puedes obtenerlo desde la sesión, por ejemplo)
                 $usuario_crear = $this->session->userdata('id_usuario'); // O el valor almacenado en la cookie si usaste cookies

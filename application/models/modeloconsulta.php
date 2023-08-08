@@ -9,7 +9,6 @@ class modeloconsulta extends CI_Model {
         $this->db->join('rol r', 'u.id_rol = r.id_rol');
         $query = $this->db->get();
 
-        // Verificar si hay datos
         if ($query->num_rows() > 0) {
             return $query->result(); // Devolver un array con los resultados
         } else {
@@ -24,7 +23,6 @@ class modeloconsulta extends CI_Model {
         $this->db->like('u.usuario', $nombre); // Filtrar por nombre de usuario
         $query = $this->db->get();
 
-        // Verificar si hay datos
         if ($query->num_rows() > 0) {
             return $query->result(); // Devolver un array con los resultados
         } else {
@@ -34,13 +32,11 @@ class modeloconsulta extends CI_Model {
 
    
     public function obtenerUsuarioPorId($idUsuario) {
-        // Realizar la consulta para obtener los datos del usuario por su ID
         $this->db->select('u.id_usuario, u.usuario, u.id_rol,u.clave');
         $this->db->from('usuario u');
         $this->db->where('u.id_usuario', $idUsuario);
         $query = $this->db->get();
     
-        // Verificar si hay datos
         if ($query->num_rows() > 0) {
             return $query->row(); // Devolver un solo resultado (la fila con los datos del usuario y su rol)
         } else {
@@ -48,16 +44,15 @@ class modeloconsulta extends CI_Model {
         }
     }
 
-    public function actualizarUsuario($idUsuario, $nuevoRol, $nuevoUsuario, $nuevaClave) {
-        // Crear un arreglo con los datos a actualizar
+    public function actualizarUsuario($idUsuario, $nuevoRol, $nuevoUsuario, $nuevaClave, $fecha_mod, $usuario_mod) {
         $datosActualizados = array(
             'id_rol' => $nuevoRol,
             'usuario' => $nuevoUsuario,
-            'clave' => $nuevaClave
-            // Agrega aquí otros campos que desees actualizar en la tabla usuario
+            'clave' => $nuevaClave,
+            'fecha_mod' => $fecha_mod,
+            'usuario_mod' => $usuario_mod
         );
     
-        // Realizar la actualización en la base de datos
         $this->db->where('id_usuario', $idUsuario);
         $this->db->update('usuario', $datosActualizados);
     }
