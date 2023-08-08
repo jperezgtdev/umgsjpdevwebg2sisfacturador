@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+require_once APPPATH . 'config/timezone_config.php';
 class LoginController extends CI_Controller {
 
     public function __construct() {
@@ -16,7 +16,8 @@ class LoginController extends CI_Controller {
 
         $usuario = $this->input->post('usuario');
         $clave = $this->input->post('clave');
-        $encrypted_clave = md5($clave);
+        $clave_decod = base64_decode($clave);
+        $encrypted_clave = sha1($clave_decod);
     
         $this->load->model('UsuarioModel'); 
         $usuario_valido = $this->UsuarioModel->validar_usuario($usuario, $encrypted_clave);

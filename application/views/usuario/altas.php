@@ -1,3 +1,6 @@
+
+<?php //require_once APPPATH . 'views/Dashboard/partesuperior.php'?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -67,3 +70,4 @@
     </script>
 </body>
 </html>
+<?php //require_once APPPATH . 'views/Dashboard/parteinferior.php'?>
