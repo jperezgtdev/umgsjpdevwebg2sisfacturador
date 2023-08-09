@@ -17,50 +17,55 @@
     </header>
     <main>
         <!-- Formulario para ingresar un producto -->
-        <form>
-            <h2>Ingresar Producto</h2>
-            <label for="productName">Nombre del Producto:</label>
-            <input type="text" id="productName" name="productName" placeholder="Ingrese el nombre del producto">
-            <button type="submit">Agregar</button>
-        </form>
-
+       
         <!-- Lista de productos -->
         <h2>Lista de Productos</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Producto 1</td>
-                    <td>
-                        <button class="edit-btn">Editar</button>
-                        <button class="delete-btn">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Producto 2</td>
-                    <td>
-                        <button class="edit-btn">Editar</button>
-                        <button class="delete-btn">Eliminar</button>
-                    </td>
-                </tr>
-                <!-- Más filas de productos aquí -->
-            </tbody>
-        </table>
+        <div id="userList">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="fa-solid fa-user fa-lg" style="color: #e63946;"></i>
+                            Producto
+                        </th>
+                        <th>
+                            <i class="fa-solid fa-users-gear fa-lg" style="color: #e63946;"></i>
+                            Existencia
+                        </th>
+                        <th>
+                            <i class="fa-solid fa-lock" style="color: #e63946;"></i>
+                            Categoria
+                        </th>
+                        <th>
+                            <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($prueba_data as $row): ?>
+                    <tr>
+                        <td><?php echo $row->producto; ?></td>
+                        <td><?php echo $row->existencia; ?></td>
+                        <td><?php echo $row->categoria; ?></td>
+                        <td class="td_boton">
+                        <a href="<?= site_url('ProductoController/obtenerDatos/' . $row->id_producto); ?>" class="edit-btn">Editar</a>
+                            
+                            <a href="" class="delete-btn">Eliminar</a>
+
+                        </td>       
+                    </tr>
+                    <?php endforeach; ?> 
+                </tbody>
+            </table>
+        </div>
+
 
         <!-- Formulario para modificar un producto -->
+        
+
         <form>
-            <h2>Modificar Producto</h2>
-            <label for="editProductName">Nuevo Nombre:</label>
-            <input type="text" id="editProductName" name="editProductName" placeholder="Ingrese el nuevo nombre del producto">
-            <button type="submit">Guardar Cambios</button>
+            <button type="submit">Agregar Producto</button>
         </form>
     </main>
 </body>

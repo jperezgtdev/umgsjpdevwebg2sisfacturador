@@ -9,6 +9,8 @@
         <title>Consulta de Usuarios</title>
 </head>
 <body>
+<?php $this->load->view('navbar'); ?>
+
     <header>
         <h1>Actualizar Usuario</h1>
     </header>  
@@ -45,7 +47,7 @@
                     <input type="password" id="confirmarClave" name="confirmarClave" placeholder="Ingrese la clave">
                 </div>
                 <br>
-                <button type="submit" class="rounded-button">Editar</button>
+                <button type="submit" class="rounded-button">Guardar Cambios</button>
             </form>
         <?php } else { ?>
             <p>No se encontró el usuario.</p>
