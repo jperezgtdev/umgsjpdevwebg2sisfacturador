@@ -17,12 +17,12 @@ header {
 }
 
 main {
-    flex: 1; /* Permite que el contenido ocupe el espacio disponible restante */
-    max-width: 800px;
+    flex: 0; /* Permite que el contenido ocupe el espacio disponible restante */
+    max-width: 1200px;
     margin: 40px auto;
     padding: 20px;
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; 
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -93,7 +93,7 @@ thead {
 }
 
 .delete-btn {
-    padding: 4px 12px;
+    padding: 7px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -102,3 +102,37 @@ thead {
 }
 
 /* Otros estilos */
+/* Estilos para pantallas más pequeñas */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px; /* Ajustar el tamaño de fuente para una mejor legibilidad en dispositivos móviles */
+        width: auto; /* Permitir que la tabla ajuste su ancho automáticamente */
+    }
+
+    th, td {
+        padding: 5px;
+    }
+
+    .edit-btn, .delete-btn {
+        padding: 2px 8px;
+        font-size: 12px;
+    }
+
+    #userList {
+        overflow-x: auto; 
+    }
+}
+
+    .edit-btn, .delete-btn {
+        text-decoration: none; 
+    }
+
+    .edit-btn:hover{
+        text-decoration: none; 
+        background-color: #00FFEC ; 
+    }
+     .delete-btn:hover {
+        text-decoration: none; 
+        background-color: black;
+        color: #fff; 
+    }

@@ -12,7 +12,7 @@ class DashboardController extends CI_Controller {
 
     public function index() {
         verificar_autenticacion($this);
-        $this->load->view('navbar'); 
+        $this->load->view('vDashboard'); 
     }
 }
 

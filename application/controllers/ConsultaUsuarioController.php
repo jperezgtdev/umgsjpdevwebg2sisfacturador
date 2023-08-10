@@ -42,7 +42,7 @@ class ConsultaUsuarioController extends CI_Controller {
         $claveIngresado = $this->input->post('claveIngresado');
         $editClave = $this->input->post('editClave');
         $confirmarClave = $this->input->post('confirmarClave');
-        $usuario_mod = $this->session->userdata('id_usuario'); // O el valor almacenado en la cookie si usaste cookies
+        $usuario_mod = $this->session->userdata('id_usuario'); 
         $fecha_mod = date("Y-m-d");
         $claveActual = $this->input->post('clave');
     

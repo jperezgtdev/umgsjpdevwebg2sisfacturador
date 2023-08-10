@@ -10,7 +10,7 @@ section{
     background: #ffffff;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 80vh;
     width: 100%;
     
 }
@@ -19,8 +19,8 @@ section{
     position: relative;
     width: 400px;
     height: 500px; 
-    background: #23242a;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: #f1faee;
+    border: 1px solid #ccc;
     border-radius: 20px;
     backdrop-filter: blur(15px);
     display: flex;  
@@ -30,7 +30,7 @@ section{
 
 h2{
     font-size: 2em;
-    color: #45f3ff;
+    color: #457b9d;
     text-align: center;
 }
 
@@ -38,7 +38,7 @@ h2{
     position: relative;
     margin: 30px 0;
     width: 310px;
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid #000000;
     
 }
 
@@ -47,7 +47,7 @@ h2{
     top: 50%;
     left: 5px;
     transform: translateY(-40%);
-    color: #fff;
+    color: #000000;
     font-size: 1em;
     pointer-events: none;
     transition: .5s;
@@ -66,12 +66,12 @@ input:valid ~ label{
     outline: none;
     font-size: 1em;
     padding: 0 35px 0 5px;
-    color: #fff;
+    color: #000000;
 }
 
 .inputbox i{
     position: absolute;
-    color: #fff;
+    color: #000000;
     right: 8px;
     font-size: 1.2em;
     top: 15px;
@@ -79,7 +79,7 @@ input:valid ~ label{
 
 #icon-select{
     position: absolute;
-    color: #fff;
+    color: #000000;
     right: 8px;
     font-size: 1.2em;
 }
@@ -141,7 +141,5 @@ button{
 }
 
 button:hover{
-    border: 1px solid #000000;
+    border: 1px solid #457b9d;
 }
-
-
