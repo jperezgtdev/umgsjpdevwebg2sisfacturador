@@ -13,38 +13,39 @@
 <body>
 <?php $this->load->view('navbar'); ?>
     <header>
-        <h1>Manejo de Productos</h1>
+        <h1>Agregar de Productos</h1>
     </header>
     <main>
-    <?php if ($producto) { ?>
-        
-            <form action="<?php echo site_url('ProductoController/guardarCambios/' . $producto->id_producto); ?>" method="POST">
+    <section>
+    <div class="form-box">
+        <div class="form-value">
+            <h2>Ingreso de producto</h2>
+            <form id="userForm" action="<?= site_url('ProductoController/nuevoProducto') ?>" method="post">
                 <div>
                     <label for="editProducto">Nombre de Producto:</label>
-                    <input type="text" id="editProducto" name="editProducto" value="<?php echo $producto->producto; ?>" placeholder="Ingrese producto">
+                    <input type="text" id="editProducto" name="editProducto" required placeholder="Ingrese producto">
                 </div>
                 <br>
                 <div>
                     <i id="icon-select" class="fa-solid fa-users"></i>
                     <select id="editCategoria" name="editCategoria" required>
-                        <option disabled>Elegir Categoria</option>
-                        <option value="Libro" <?php if ($producto->id_categoria == 1) echo 'selected'; ?>>Libros</option>
-                        
-                    </select>      
+                        <option disabled selected>Elegir Categoría</option>
+                        <option value="1">Libros</option>
+                        <!-- Otras opciones de categoría si las tienes -->
+                    </select>
                 </div>
                 <br>
                 <div>
-                    <label for="editExistencia">Ingrese la existencia</label>
-                    <input type="text" id="editExistencia" name="editExistencia" value="<?php echo $producto->existencia; ?>" placeholder="Ingrese producto">
-
+                    <label for="editExistencia">Ingrese la existencia:</label>
+                    <input type="text" id="editExistencia" name="editExistencia" required placeholder="Ingrese la cantidad">
                 </div>
                 <br>
-             
-                <button type="submit" class="rounded-button">Guardar Cambios</button>
+                <button type="submit">Crear Producto</button>
             </form>
-        <?php } else { ?>
-            <p>No se encontró el usuario.</p>
-        <?php } ?>
+        </div>
+    </div>
+</section>
+
 
         
 
