@@ -14,7 +14,7 @@ class AltasUsuarioController extends CI_Controller
 
     public function index() {
         verificar_autenticacion($this);
-        $this->load->view('usuario/altas');
+        $this->load->view('proveedor/altaproveedor');
     }
 
     public function crear_usuario()
