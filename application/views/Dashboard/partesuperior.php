@@ -100,7 +100,12 @@
         </li>
         <hr class="sidebar-divider d-none d-md-block">
 
-<hr class="sidebar-divider d-none d-md-block">
+
+<div class="sidebar-heading" style="font-size: 15px;">
+           Sesion
+           <li><a href="<?= site_url('LogoutController/logout')?>">Cerrar Sesion</a></li>
+        </div>
+
 </ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
