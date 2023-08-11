@@ -57,4 +57,5 @@ $route['Clientes'] = 'ClienteController/index';
 $route['AltaCliente'] = 'ClienteController/altasCliente';
 $route['RegistroUsuario'] = 'UsuarioController/indexAlta';
 $route['Usuarios'] = 'UsuarioController/indexConsulta';
-$route['AltaCompra'] = 'CompraController/index';
+$route['AltaCompra'] = 'CompraController/indexAlta';
+$route['ConsultaCompra'] = 'CompraController/indexConsulta';

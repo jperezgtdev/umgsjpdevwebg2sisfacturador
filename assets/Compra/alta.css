@@ -5,6 +5,13 @@
     font-family: 'Poppins', sans-serif;
 }
 
+header {
+    background-color: #1d3557;
+    color: #fff;
+    padding: 1px;
+    text-align: center;
+}
+
 section{
     display: flex;
     background: #ffffff;

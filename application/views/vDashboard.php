@@ -15,16 +15,17 @@
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 
-        <title>Formulario de Creación de Cliente</title>
+        <title>Desarrollo Web</title>
     </head>
     <header>
         <h1>Bienvenido!</h1>
     </header>
-<body>
-</body>
+    <body>
+    </body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>
 </html>
 <?php //require_once APPPATH . 'views/Dashboard/parteinferior.php'?>
