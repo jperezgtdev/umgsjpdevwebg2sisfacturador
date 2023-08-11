@@ -27,11 +27,9 @@
         <main>
 
             <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('ClienteController/altasCliente')?>">
-        <i class="fas fa-user-plus"></i> Nuevo Cliente
-    </a>
-    <br><br>
-
-
+                <i class="fas fa-user-plus"></i> Nuevo Cliente
+            </a>
+            <br><br>
             <br>
             <div id="userList">
                 <table id="ClienteTable" class="table table-hover table-striped">

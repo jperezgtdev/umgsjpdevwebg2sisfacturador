@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 require_once APPPATH . 'config/timezone_config.php';
-class AltasUsuarioController extends CI_Controller
+class UsuarioController extends CI_Controller
 {
 
     public function __construct()
@@ -12,9 +12,9 @@ class AltasUsuarioController extends CI_Controller
         $this->load->helper('autenticacion');
     }
 
-    public function index() {
+    public function indexAlta() {
         verificar_autenticacion($this);
-        $this->load->view('proveedor/altaproveedor');
+        $this->load->view('usuario/altas');
     }
 
     public function crear_usuario()
@@ -80,5 +80,60 @@ class AltasUsuarioController extends CI_Controller
            
             redirect('/');
         }
+    }
+
+    public function indexConsulta() {
+        verificar_autenticacion($this);
+        $data['prueba_data'] = $this->UsuarioModel->getUsuarioData();
+        $this->load->view('usuario/consulta', $data);
+    }
+
+    public function desactivarUsuario($idUsuario) {
+        $data['usuario'] = $this->UsuarioModel->bajaUsuario($idUsuario);
+        $data['prueba_data'] = $this->UsuarioModel->getUsuarioData();
+        $this->load->view('usuario/consulta', $data);    }
+
+    public function buscarPorNombre() {
+        $nombre = $this->input->post('firstName');
+        $data['prueba_data'] = $this->UsuarioModel->getUsuariosPorNombre($nombre);
+        $this->load->view('usuario/consulta', $data);
+    }
+
+
+    public function obtenerDatos($idUsuario) {
+        $data['usuario'] = $this->UsuarioModel->obtenerUsuarioPorId($idUsuario);
+        $this->load->view('usuario/actualizar', $data);
+    }
+    
+
+    public function guardarCambios($id_usuario) {
+        $referer = $_SERVER['HTTP_REFERER'];
+    
+        $nuevoUsuario = $this->input->post('editUsuario');
+        $nuevoRol = $this->input->post('editRol');
+        $claveIngresado = $this->input->post('claveIngresado');
+        $editClave = $this->input->post('editClave');
+        $confirmarClave = $this->input->post('confirmarClave');
+        $usuario_mod = $this->session->userdata('id_usuario'); 
+        $fecha_mod = date("Y-m-d");
+        $claveActual = $this->input->post('clave');
+    
+        if (empty($claveIngresado)) {
+            $claveEncriptada = $claveActual;
+        } else {
+            if (sha1($claveIngresado) !== $claveActual) {
+                return redirect($referer);
+            }
+
+            if ($editClave !== $confirmarClave) {
+                return redirect($referer);
+            }
+    
+            $claveEncriptada = sha1($editClave);
+        }
+    
+        $id_rol = ($nuevoRol === "administrador") ? 1 : 2;
+        $this->UsuarioModel->actualizarUsuario($id_usuario, $id_rol, $nuevoUsuario, $claveEncriptada, $fecha_mod, $usuario_mod);
+        return redirect('Usuarios');
     }
 }

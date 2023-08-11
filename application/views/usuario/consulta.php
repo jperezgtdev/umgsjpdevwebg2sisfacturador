@@ -26,6 +26,10 @@
 
 <body>
     <main>
+        <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('UsuarioController/indexAlta')?>">
+            <i class="fas fa-user-plus"></i> Nuevo Usuario
+        </a>
+        <br><br>
         <br>
         <div id="userList">
             <table id="UsuarioTable" class="table table-hover table-striped">
@@ -64,11 +68,11 @@
                                 <?php echo $row->clave; ?>
                             </td>
                             <td class="td_boton">
-                                <a href="<?= site_url('ConsultaUsuarioController/obtenerDatos/' . $row->id_usuario); ?>"
+                                <a href="<?= site_url('UsuarioController/obtenerDatos/' . $row->id_usuario); ?>"
                                     class="edit-btn">Editar</a>
 
                                 <a id="EliminarUsuario"
-                                    href="<?= site_url('ConsultaUsuarioController/desactivarUsuario/' . $row->id_usuario); ?>"
+                                    href="<?= site_url('UsuarioController/desactivarUsuario/' . $row->id_usuario); ?>"
                                     class="delete-btn">Eliminar</a>
                             </td>
                         </tr>

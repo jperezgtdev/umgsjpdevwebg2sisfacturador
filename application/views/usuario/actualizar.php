@@ -16,7 +16,7 @@
     </header>  
     <main >
         <?php if ($usuario) { ?>
-            <form action="<?php echo site_url('ConsultaUsuarioController/guardarCambios/' . $usuario->id_usuario); ?>" method="POST">
+            <form action="<?php echo site_url('UsuarioController/guardarCambios/' . $usuario->id_usuario); ?>" method="POST">
                 <div>
                     <label for="editUsuario">Nombre de Usuario:</label>
                     <input type="text" id="editUsuario" name="editUsuario" value="<?php echo $usuario->usuario; ?>" placeholder="Ingrese el nombre de usuario">
