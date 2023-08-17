@@ -41,9 +41,20 @@ class ProductoModel extends CI_Model {
            
         );
     
-        
         $this->db->where('id_producto', $id_producto);
         $this->db->update('producto', $datosActualizados);
+    }
+
+
+    public function insertarProducto($data) {
+        // Insertar el registro en la tabla "Producto"
+        $this->db->insert('producto', $data);
+    }
+    
+
+    public function eliminarProducto($id_producto) {
+        $this->db->where('id_producto', $id_producto);
+        $this->db->delete('producto');
     }
     
 

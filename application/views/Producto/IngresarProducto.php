@@ -1,3 +1,4 @@
+<?php require_once APPPATH . 'views/Dashboard/partesuperior.php'?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,6 @@
     <title>Manejo de Productos</title>
 </head>
 <body>
-<?php $this->load->view('navbar'); ?>
     <header>
         <h1>Agregar de Productos</h1>
     </header>

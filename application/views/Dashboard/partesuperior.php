@@ -56,7 +56,7 @@
                 <div id="producto" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestion de Ventas</h6>
-                        <a class="collapse-item" href="#">Ingreso de Productos
+                        <a class="collapse-item" href="<?= site_url('IngresarProducto') ?>">Añadir producto
                             <i class="fab fa-product-hunt" style="font-size: 15px;"></i>
                         </a>
                         <a class="collapse-item" href="#">Productos en Inventario
@@ -113,7 +113,9 @@
 
         </ul>
         <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
+
+        
+            <div>
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>

@@ -11,7 +11,6 @@ class LoginController extends CI_Controller {
 
         $this->load->view('Login');
     }
-
     public function login() {
 
         $usuario = $this->input->post('usuario');

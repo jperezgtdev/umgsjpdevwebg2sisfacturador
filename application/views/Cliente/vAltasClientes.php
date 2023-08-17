@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="<?php echo base_url('assets/usuario/consulta.css'); ?>">
-        
+        <title>Formulario de Creación de Cliente</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
             integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
             crossorigin="anonymous">
@@ -15,7 +15,7 @@
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
         <link rel="stylesheet" href="<?php echo base_url('assets/usuario/alta.css'); ?>">
-        <title>Formulario de Creación de Cliente</title>
+        
     </head>
     <header>
         <h1>Registro de Nuevo Cliente</h1>

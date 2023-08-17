@@ -45,6 +45,52 @@ public function guardarCambios($id_Producto) {
     return redirect('ProductoController');
 }
 
+public function IngresarProducto() {
+    verificar_autenticacion($this);
+    $this->load->view('Producto/IngresarProducto');
+}
+
+public function nuevoProducto(){
+    if ($this->input->server('REQUEST_METHOD') === 'POST') {
+        // Recuperar datos del formulario
+        $producto = $this->input->post('editProducto');
+        $id_categoria = $this->input->post('editCategoria');
+        $existencia = $this->input->post('editExistencia');
+
+
+
+            // Insertar los datos en la base de datos
+            $data = array(
+                'producto' => $producto,
+                'id_categoria' => $id_categoria,
+                'existencia' => $existencia,
+            );
+
+            $this->ProductoModel->insertarProducto($data);
+
+            // Redirigir a otra página o mostrar un mensaje de éxito
+            redirect('ProductoController');
+
+        
+
+
+    } else {
+        // Si se intenta acceder directamente a la URL del controlador sin enviar el formulario, redirigir a la página de inicio.
+        redirect('/');
+    }
+
+    
+    
+}
+
+public function eliminarProducto($id_Producto) {
+    // Lógica para eliminar el producto con el id $id_Producto
+    $this->ProductoModel->eliminarProducto($id_Producto);
+
+    // Redireccionar a la vista principal
+    return redirect('ProductoController');
+}
+
 }
 
 ?>
