@@ -27,8 +27,7 @@ class LoginController extends CI_Controller {
             $this->crear_sesion($id_usuario);
             redirect('DashboardController');
         } else {
-            echo "Usuario o contraseña incorrectos";
-            redirect('Login');
+            redirect('LoginController');
         }
     }
 

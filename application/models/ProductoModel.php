@@ -4,19 +4,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class ProductoModel extends CI_Model {
 
     public function getProductos() {
-        //$estado = "Activo";
-        $this->db->select('p.id_producto, p.producto, p.existencia, c.categoria');
+        $estado = "Activo";
+        $this->db->select('p.id_producto, p.producto, p.existencia, p.id_categoria, c.categoria');
         $this->db->from('producto p');
         $this->db->join('categoria c', 'p.id_categoria = c.id_categoria');
-        //$this->db->where('u.estado',$estado);
-
-
+        $this->db->where('p.estado',$estado);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
-            return $query->result(); // Devolver un array con los resultados
+            return $query->result(); 
         } else {
-            return array(); // Devolver un array vacío si no hay datos
+            return array();
+        }
+    }
+
+    public function getCategoria() {
+        $this->db->select('*');
+        $this->db->from('categoria');
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
         }
     }
 
@@ -27,17 +37,19 @@ class ProductoModel extends CI_Model {
         $query = $this->db->get();
     
         if ($query->num_rows() > 0) {
-            return $query->row(); // Devolver un solo resultado (la fila con los datos del usuario y su rol)
+            return $query->row(); 
         } else {
-            return null; // Devolver null si no hay datos
+            return null;
         }
     }
 
-    public function actualizarProducto($id_producto, $nuevoProducto, $nuevaCategoria, $nuevaExistencia) {
+    public function actualizarProducto($id_producto, $nuevoProducto, $nuevaCategoria, $nuevaExistencia, $usuario_mod, $fecha_mod) {
         $datosActualizados = array(
             'producto' => $nuevoProducto,
             'id_categoria' => $nuevaCategoria,
             'existencia' => $nuevaExistencia,
+            'fecha_mod' => $usuario_mod,
+            'usuario_mod' => $usuario_mod
            
         );
     
@@ -47,17 +59,22 @@ class ProductoModel extends CI_Model {
 
 
     public function insertarProducto($data) {
-        // Insertar el registro en la tabla "Producto"
         $this->db->insert('producto', $data);
     }
     
 
     public function eliminarProducto($id_producto) {
+        $usuario_mod = $this->session->userdata('id_usuario');
+        $fecha_mod = date('Y-m-d');
+        $nuevoEstado = "Inactivo";
+        $datosActualizados = array(
+            'estado' => $nuevoEstado,
+            'usuario_mod' => $usuario_mod,
+            'fecha_mod' => $fecha_mod
+        );
         $this->db->where('id_producto', $id_producto);
-        $this->db->delete('producto');
+        $this->db->update('producto', $datosActualizados);
     }
     
 
-
-    
 }

@@ -1,80 +1,89 @@
-<?php require_once APPPATH . 'views/Dashboard/partesuperior.php'?>
+<?php require_once APPPATH . 'views/Dashboard/partesuperior.php' ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo base_url('assets/producto/consulta.css'); ?>">
     <title>Consulta de Usuarios</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css">
-        
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
     <title>Manejo de Producto</title>
 </head>
+
 <body>
     <header>
         <h1>Manejo de Producto</h1>
     </header>
     <main>
         <!-- modale para ingresar un producto -->
-        <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('ProductoController/IngresarProducto')?>">
-        <i class="fas fa-user-plus"></i> Agregar 
+        <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;"
+            href="<?= site_url('ProductoController/indexAlta') ?>">
+            <i class="fas fa-user-plus"></i> Agregar
         </a>
+        <br><br>
 
-    <br><br>
-       
         <!-- Lista de productos -->
         <div id="userList">
-        <table id="ClienteTable" class="table table-hover table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        <i class="fa-solid fa-user fa-lg" style="color: #e63946;"></i>
-                        Producto
-                    </th>
-                    <th>
-                        <i class="fa-solid fa-users-gear fa-lg" style="color: #e63946;"></i>
-                        Existencia
-                    </th>
-                    <th>
-                        <i class="fa-solid fa-lock" style="color: #e63946;"></i>
-                        Categoria
-                    </th>
-                    <th>
-                        <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
-                        Acciones
-                    </th>
-                </tr>
-            </thead>
+            <table id="ClienteTable" class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="fa-solid fa-user fa-lg" style="color: #e63946;"></i>
+                            Producto
+                        </th>
+                        <th>
+                            <i class="fa-solid fa-users-gear fa-lg" style="color: #e63946;"></i>
+                            Existencia
+                        </th>
+                        <th>
+                            <i class="fa-solid fa-lock" style="color: #e63946;"></i>
+                            Categoria
+                        </th>
+                        <th>
+                            <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
                 <tbody>
                     <?php foreach ($prueba_data as $row): ?>
-                    <tr>
-                        <td><?php echo $row->producto; ?></td>
-                        <td><?php echo $row->existencia; ?></td>
-                        <td><?php echo $row->categoria; ?></td>
-                        <td class="td_boton">
-                        <a href="<?= site_url('ProductoController/obtenerDatos/' . $row->id_producto); ?>"
-                                        class="edit-btn" data-bs-toggle="modal" data-bs-target="#editarModal"
-                                        data-cliente='<?php echo json_encode($row); ?>'>Editar</a>
-                            
-                        <a href="<?= site_url('ProductoController/eliminarProducto/' . $row->id_producto); ?>" class="delete-btn">Eliminar</a>
+                        <tr>
+                            <td>
+                                <?php echo $row->producto; ?>
+                            </td>
+                            <td>
+                                <?php echo $row->existencia; ?>
+                            </td>
+                            <td>
+                                <?php echo $row->categoria; ?>
+                            </td>
+                            <td class="td_boton">
+                                <a href="<?= site_url('ProductoController/obtenerDatos/' . $row->id_producto); ?>"
+                                    class="edit-btn" data-bs-toggle="modal" data-bs-target="#editarModal"
+                                    data-cliente='<?php echo json_encode($row); ?>'>Editar</a>
 
-                        </td>       
-                    </tr>
-                    <?php endforeach; ?> 
+                                <a id="EliminarUsuario"
+                                    href="<?= site_url('ProductoController/eliminarProducto/' . $row->id_producto); ?>"
+                                    class="delete-btn">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
 
 
-        
 
-        <form>
+
     </main>
 
     <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
@@ -97,7 +106,7 @@
                             <input type="text" id="editCategoria" name="editCategoria"
                                 placeholder="Ingrese el nombre de usuario">
                         </div>
-                        
+
                         <div>
                             <label for="editExistencia">Existencia:</label>
                             <input type="text" id="editExistencia" name="editExistencia"
@@ -127,7 +136,7 @@
     </script>
 
 
-<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const editButtons = document.querySelectorAll('.edit-btn');
             const editForm = document.getElementById('editForm');
@@ -142,12 +151,12 @@
                     const editCategoriaInput = document.getElementById('editCategoria');
                     const editExistenciaInput = document.getElementById('editExistencia');
 
-                    
+
 
                     editClienteInput.value = clienteData.producto;
-                    editCategoriaInput.value = clienteData.categoria;
+                    editCategoriaInput.value = clienteData.id_categoria;
                     editExistenciaInput.value = clienteData.existencia;
-                   
+
                     saveChangesUrl = '<?php echo site_url("ProductoController/guardarCambios/' + clienteData.id_producto + '"); ?>';
                     $('#editarModal').modal('show');
 
@@ -162,5 +171,39 @@
             });
         });
     </script>
+    <script>
+        const deleteLinks = document.querySelectorAll('.delete-btn');
+
+        deleteLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                const deleteUrl = this.getAttribute('href');
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "El Cliente será eliminado",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Eliminado!',
+                            text: 'El Cliente ha sido Eliminado',
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6'
+                        }).then(() => {
+                            window.location.href = deleteUrl;
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>

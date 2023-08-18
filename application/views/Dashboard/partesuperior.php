@@ -39,10 +39,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestion de Clientes</h6>
                         <a class="collapse-item" href="<?= site_url('AltaCliente') ?>">Añadir Cliente
-                            <i class="fas fa-user-plus" style="font-size: 15px;"></i> 
                         </a>
                         <a class="collapse-item" href="<?= site_url('Clientes') ?>">Clientes
-                            <i class="fas fa-user-friends" style="font-size: 15px;"></i>
                         </a>
                     </div>
                 </div>
@@ -56,11 +54,9 @@
                 <div id="producto" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestion de Ventas</h6>
-                        <a class="collapse-item" href="<?= site_url('IngresarProducto') ?>">Añadir producto
-                            <i class="fab fa-product-hunt" style="font-size: 15px;"></i>
+                        <a class="collapse-item" href="<?= site_url('AltaProducto') ?>">Añadir producto
                         </a>
-                        <a class="collapse-item" href="#">Productos en Inventario
-                            <i class="fas fa-store-alt" style="font-size: 15px;"></i>
+                        <a class="collapse-item" href="<?= site_url('ConsultaProducto') ?>">Productos en Inventario
                         </a>
                     </div>
                 </div>
@@ -97,16 +93,15 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Administración de Usuarios</h6>
                         <a class="collapse-item" href="<?= site_url('RegistroUsuario') ?>">Registrar Usuario
-                            <i class="fas fa-plus" style="font-size: 15px;"></i>
                         </a>
                         <a class="collapse-item" href="<?= site_url('Usuarios') ?>">Usuarios existentes
-                            <i class="fas fa-user-check" style="font-size: 15px;"></i>
                         </a>
                     </div>
                 </div>
             </li>
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading" style="font-size: 15px;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 Sesion
             <li><a href="<?= site_url('LogoutController/logout')?>">Cerrar Sesion</a></li>
             </div>

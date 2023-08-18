@@ -59,4 +59,5 @@ $route['RegistroUsuario'] = 'UsuarioController/indexAlta';
 $route['Usuarios'] = 'UsuarioController/indexConsulta';
 $route['AltaCompra'] = 'CompraController/indexAlta';
 $route['ConsultaCompra'] = 'CompraController/indexConsulta';
-$route['IngresarProducto'] = 'ProductoController/index';
+$route['AltaProducto'] = 'ProductoController/indexAlta';
+$route['ConsultaProducto'] = 'ProductoController/indexConsulta';
