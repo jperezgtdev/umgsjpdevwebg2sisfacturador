@@ -12,7 +12,8 @@ public function __construct() {
 public function indexConsulta() {
     verificar_autenticacion($this);
     $data['prueba_data'] = $this->ProductoModel->getProductos();
-    $this->load->view ('Producto/ConsultaProducto',$data);
+    $data['categorias'] = $this->ProductoModel->getCategoria();
+    $this->load->view('Producto/ConsultaProducto', $data);
 }
 
 public function indexAlta() {
@@ -20,12 +21,6 @@ public function indexAlta() {
     $data['categorias'] = $this->ProductoModel->getCategoria();
     $this->load->view ('Producto/IngresarProducto',$data);
 }  
-
-public function obtenerDatos($id_Producto) {
-    $data['producto'] = $this->ProductoModel->ObtenerProductoPorId($id_Producto);
-    $this->load->view('Producto/ActualizarProducto', $data);
-}
-
 public function guardarCambios($id_Producto) {
     $referer = $_SERVER['HTTP_REFERER'];
 

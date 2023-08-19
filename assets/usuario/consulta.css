@@ -47,7 +47,10 @@ form {
     margin-bottom: 20px;
 }
 
-
+.nuevo-producto{
+    position: relative;
+    height: 60px;
+}
 
 input {
     padding: 5px;
@@ -123,16 +126,16 @@ thead {
     }
 }
 
-    .edit-btn, .delete-btn {
-        text-decoration: none; 
-    }
+.edit-btn, .delete-btn {
+    text-decoration: none; 
+}
 
-    .edit-btn:hover{
-        text-decoration: none; 
-        background-color: #00FFEC ; 
-    }
-     .delete-btn:hover {
-        text-decoration: none; 
-        background-color: black;
-        color: #fff; 
-    }
+.edit-btn:hover{
+    text-decoration: none; 
+    background-color: #00FFEC ; 
+}
+    .delete-btn:hover {
+    text-decoration: none; 
+    background-color: black;
+    color: #fff; 
+}
