@@ -77,7 +77,7 @@ class UsuarioModel extends CI_Model {
 
     public function getUsuarioData() {
         $estado = "Activo";
-        $this->db->select('u.id_usuario, u.usuario, r.rol, u.clave  ');
+        $this->db->select('u.id_usuario, u.usuario, u.id_rol, r.rol, u.clave  ');
         $this->db->from('usuario u');
         $this->db->join('rol r', 'u.id_rol = r.id_rol');
         $this->db->where('u.estado',$estado);

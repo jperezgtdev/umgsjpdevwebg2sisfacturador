@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 require_once APPPATH . 'config/timezone_config.php';
+
 class UsuarioController extends CI_Controller
 {
 
@@ -23,7 +24,9 @@ class UsuarioController extends CI_Controller
             $nombre = $this->input->post('person');
             $username = $this->input->post('username');
             $password = $this->input->post('password');
+            //$decod_password = base64_decode($password);
             $confirm_password = $this->input->post('confirm_password');
+            //$decod_confirm_password = base64_decode($confirm_password);
             $role = $this->input->post('role');
 
 
@@ -35,18 +38,24 @@ class UsuarioController extends CI_Controller
 
                 $query_person = $this ->UsuarioModel->buscar_person($id_persona);
                 if($query_person){
-                    echo "<script>alert('el empleado ya tiene un usuario. Por favor, elige otro empleado.');window.history.back();</script>";
+                    $response['success'] = false;
+                    $response['message'] = "El empleado ya tiene un usuario. Por favor, elige otro empleado.";
+                    echo json_encode($response);
                     return;
                 }
 
                 $query_username = $this ->UsuarioModel->buscar_username($username);
                 if($query_username){
-                    echo "<script>alert('El nombre de usuario ya existe. Por favor, elige otro nombre.');window.history.back();</script>";
+                    $response['success'] = false;
+                    $response['message'] = "El nombre de usuario ya existe. Por favor, elige otro nombre.";
+                    echo json_encode($response);
                     return;
                 }
 
                 if ($password !== $confirm_password) {
-                    echo '<script>alert("Las contraseñas no coinciden. Por favor, inténtelo de nuevo."); window.history.back();</script>';
+                    $response['success'] = false;
+                    $response['message'] = "Las contraseñas no coinciden. Por favor, inténtelo de nuevo.";
+                    echo json_encode($response);
                     return;
                 }
 
@@ -68,11 +77,15 @@ class UsuarioController extends CI_Controller
                 );
 
                 $this->UsuarioModel->insertar_usuario($data);
-                echo '<script>alert("Usuario creado exitosamente.");</script>';
-                redirect('ConsultaUsuarioController');
+                $response['success'] = true;
+                $response['message'] = "Usuario creado exitosamente.";
+                echo json_encode($response);
 
             } else {
-                echo "<script>alert('El empleado no fue encontrado.'); window.history.back();</script>";
+                $response['success'] = false;
+                $response['message'] = "El empleado no fue encontrado.";
+                echo json_encode($response);
+                return;
             }
 
 
@@ -108,32 +121,34 @@ class UsuarioController extends CI_Controller
 
     public function guardarCambios($id_usuario) {
         $referer = $_SERVER['HTTP_REFERER'];
-    
         $nuevoUsuario = $this->input->post('editUsuario');
         $nuevoRol = $this->input->post('editRol');
         $claveIngresado = $this->input->post('claveIngresado');
+        $decod_claveIngresado = base64_decode($claveIngresado);
         $editClave = $this->input->post('editClave');
+        $decod_editClave = base64_decode($editClave);
         $confirmarClave = $this->input->post('confirmarClave');
+        $decod_confirmarClave = base64_decode($confirmarClave);
         $usuario_mod = $this->session->userdata('id_usuario'); 
         $fecha_mod = date("Y-m-d");
         $claveActual = $this->input->post('clave');
+        $decod_claveActual = base64_decode($claveActual);
     
-        if (empty($claveIngresado)) {
-            $claveEncriptada = $claveActual;
+        if (empty($decod_claveIngresado)) {
+            $claveEncriptada = $decod_claveActual;
         } else {
-            if (sha1($claveIngresado) !== $claveActual) {
+            if (sha1($decod_claveIngresado) !== $decod_claveActual) {
                 return redirect($referer);
             }
 
-            if ($editClave !== $confirmarClave) {
+            if ($decod_editClave !== $decod_confirmarClave) {
                 return redirect($referer);
             }
     
-            $claveEncriptada = sha1($editClave);
+            $claveEncriptada = sha1($decod_editClave);
         }
-    
-        $id_rol = ($nuevoRol === "administrador") ? 1 : 2;
-        $this->UsuarioModel->actualizarUsuario($id_usuario, $id_rol, $nuevoUsuario, $claveEncriptada, $fecha_mod, $usuario_mod);
+
+        $this->UsuarioModel->actualizarUsuario($id_usuario, $nuevoRol, $nuevoUsuario, $claveEncriptada, $fecha_mod, $usuario_mod);
         return redirect('Usuarios');
     }
 }
