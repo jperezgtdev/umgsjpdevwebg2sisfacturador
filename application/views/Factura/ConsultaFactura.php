@@ -14,12 +14,13 @@
 
     <body>
         <header>
-            <h1>Consulta de Productos</h1>
+            <h1>Facturas</h1>
         </header>
         <main>
+            <h1></h1>
             <div class="nuevo-producto">
                 <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('ProductoController/indexAlta')?>">
-                    <i class="fa-solid fa-notes-medical"></i> Nuevo producto
+                    <i class="fa-solid fa-notes-medical"></i> Nueva Factura
                 </a>
             </div>
             <div class="userList" id="userList">
@@ -28,43 +29,56 @@
                         <tr>
                             <th>
                                 <i class="fa-solid fa-pen-to-square" style="color: #e63946;"></i>
-                                Producto
+                                Cliente
                             </th>
                             <th>
                                 <i class="fa-solid fa-boxes-stacked" style="color: #e63946;"></i>
-                                Existencia
+                                Fecha
                             <th>
                                 <i class="fa-solid fa-list" style="color: #e63946;"></i>
-                                Categoria
+                                Serie
+                            </th>
+                            <th>
+                                <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
+                                Numero
                             </th>
                             <th>
                                 <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
                                 Acciones
                             </th>
+                            
                         </tr>
                     </thead>
                     <tbody>
+                        
                         <?php foreach ($prueba_data as $row): ?>
                             <tr>
                                 <td>
-                                    <?php echo $row->producto; ?>
+                                    <?php echo $row->nombre; ?>
                                 </td>
                                 <td>
-                                    <?php echo $row->existencia; ?>
+                                    <?php echo $row->fecha; ?>
                                 </td>
                                 <td>
-                                    <?php echo $row->categoria; ?>
+                                    <?php echo $row->serie; ?>
                                 </td>
+                                <td>
+                                    <?php echo $row->numero; ?>
+                                </td>
+
                                 <td class="td_boton">
-                                    <a href="<?= site_url($row->id_producto); ?>"
+
+                                
+                                    <a href=""
                                         class="edit-btn" data-bs-toggle="modal" data-bs-target="#editarModal"
-                                        data-cliente='<?php echo json_encode($row); ?>'>Editar
+                                        data-cliente=''>Ver detalle
                                     </a>
                                     <a id="EliminarUsuario"
-                                        href="<?= site_url('ProductoController/eliminarProducto/' . $row->id_producto); ?>"
-                                        class="delete-btn">Eliminar
+                                        href=""
+                                        class="delete-btn">Anular Factura
                                     </a>
                                 </td>
+                                
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

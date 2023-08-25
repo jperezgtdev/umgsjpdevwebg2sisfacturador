@@ -85,7 +85,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#  " aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Usuarios</span>
                 </a>
@@ -99,6 +99,31 @@
                     </div>
                 </div>
             </li>
+
+
+            <!-- FACTURAS-->
+
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading" style="font-size: 15px;">
+                FACTURAS 
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#FACTURAS" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Facturas</span>
+                </a>
+                <div id="FACTURAS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Administración de FACTURAS</h6>
+                        <a class="collapse-item" href="<?= site_url('ConsultaFactura') ?>">Registrar Usuario
+                        </a>
+                        <a class="collapse-item" href="">Usuarios existentes
+                        </a>
+                    </div>
+                </div>
+            </li>
+
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading" style="font-size: 15px;">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
