@@ -18,15 +18,21 @@
         </header>
         <main>
             <h1></h1>
-            <div class="nuevo-producto">
-                <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('ProductoController/indexAlta')?>">
+            <div class="nueva-Factura">
+                <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('FacturaController/Facturacion')?>">
                     <i class="fa-solid fa-notes-medical"></i> Nueva Factura
                 </a>
+                <br>
             </div>
+            <br><br>
             <div class="userList" id="userList">
                 <table id="ProductoTable" class="table table-hover table-striped">
                     <thead>
                         <tr>
+                        <th>
+                                <i class="fa-solid fa-pen-to-square" style="color: #e63946;"></i>
+                                Referencia
+                            </th>
                             <th>
                                 <i class="fa-solid fa-pen-to-square" style="color: #e63946;"></i>
                                 Cliente
@@ -42,6 +48,11 @@
                                 <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
                                 Numero
                             </th>
+
+                            <th>
+                                <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
+                                Estado
+                            </th>
                             <th>
                                 <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
                                 Acciones
@@ -53,6 +64,9 @@
                         
                         <?php foreach ($prueba_data as $row): ?>
                             <tr>
+                            <td>
+                                    <?php echo $row->referencia; ?>
+                                </td>
                                 <td>
                                     <?php echo $row->nombre; ?>
                                 </td>
@@ -65,17 +79,22 @@
                                 <td>
                                     <?php echo $row->numero; ?>
                                 </td>
+                                <td>
+                                    <?php echo $row->estado; ?>
+                                </td>
+
 
                                 <td class="td_boton">
-
-                                
                                 <a href=""
-                                        class="edit-btn" >Ver Factura
+                                        class="edit-btn mr-2" >Ver Factura
                                     </a>
-                                    <a id="EliminarCompra"
-                                        href="<?= site_url('FacturaController/bajaFactura/' . $row->id_factura); ?>"
-                                        class="delete-btn">Eliminar
-                                    </a>
+                                    
+                                    <?php if ($row->estado == 'Emitida'): ?>
+                                    <a id="AnularFactura"
+                                     href="<?= site_url('FacturaController/bajaFactura/' . $row->id_factura); ?>"
+                                     class="delete-btn">Anular
+                                     </a>
+                                    <?php endif; ?>
                                 </td>
                                 
                             </tr>
@@ -109,18 +128,18 @@
 
                     Swal.fire({
                         title: '¿Estás seguro?',
-                        text: "El producto será eliminado",
+                        text: "La Factura será anulada",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Sí, eliminar',
+                        confirmButtonText: 'Sí, Anular',
                         cancelButtonText: 'Cancelar'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             Swal.fire({
-                                title: 'Eliminado!',
-                                text: 'El producto ha sido eliminado',
+                                title: 'Anulada!',
+                                text: 'La Factura ha sido Anulada Exitosamente',
                                 icon: 'success',
                                 confirmButtonColor: '#3085d6'
                             }).then(() => {

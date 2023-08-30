@@ -4,13 +4,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class FacturaModel extends CI_Model
 {
 
-    public function getProductos()
+    public function getFacturas()
     {
-        $estado = "Activo";
-        $this->db->select('f.id_factura,c.nombre, f.fecha, f.serie, f.numero');
+        $this->db->select('f.id_factura,c.nombre, f.fecha, f.serie, f.numero, f.estado, f.referencia');
         $this->db->from('factura f');
         $this->db->join('cliente c', 'f.id_cliente = c.id_cliente');
-        $this->db->where('f.estado', $estado);
+        $this->db->order_by('f.referencia', 'ASC');
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
@@ -28,12 +27,6 @@ class FacturaModel extends CI_Model
         $this->db->or_like('nombre', $term);
         $this->db->group_end();
         $this->db->where('estado', 'Activo');
-    }
-    
-    public function getCategoria()
-    {
-        $this->db->select('*');
-        $this->db->from('categoria');
         $query = $this->db->get();
     
         if ($query->num_rows() > 0) {
@@ -41,13 +34,21 @@ class FacturaModel extends CI_Model
         } else {
             return array();
         }
-    }    
+    }
+    
 
     public function buscar_producto($term) {
         $this->db->select('id_producto, producto'); 
         $this->db->from('producto'); 
         $this->db->like('producto', $term); 
         $this->db->where('estado', 'Activo');
+        $query = $this->db->get();
+    
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
     }
     
     public function ObtenerProductoPorId($id_producto)
@@ -66,47 +67,13 @@ class FacturaModel extends CI_Model
     }    
     
 
-    public function actualizarProducto($id_producto, $nuevoProducto, $nuevaCategoria, $nuevaExistencia, $usuario_mod, $fecha_mod)
-    {
-        $datosActualizados = array(
-            'producto' => $nuevoProducto,
-            'id_categoria' => $nuevaCategoria,
-            'existencia' => $nuevaExistencia,
-            'fecha_mod' => $usuario_mod,
-            'usuario_mod' => $usuario_mod
 
-        );
-
-        $this->db->where('id_producto', $id_producto);
-        $this->db->update('producto', $datosActualizados);
-    }
-
-
-    public function insertarProducto($data)
-    {
-        $this->db->insert('producto', $data);
-    }
-
-
-    public function eliminarProducto($id_producto)
-    {
-        $usuario_mod = $this->session->userdata('id_usuario');
-        $fecha_mod = date('Y-m-d');
-        $nuevoEstado = "Inactivo";
-        $datosActualizados = array(
-            'estado' => $nuevoEstado,
-            'usuario_mod' => $usuario_mod,
-            'fecha_mod' => $fecha_mod
-        );
-        $this->db->where('id_producto', $id_producto);
-        $this->db->update('producto', $datosActualizados);
-    }
-
+   
     public function bajaFactura($id_factura)
     {
         $usuario_mod = $this->session->userdata('id_usuario');
         $fecha_mod = date('Y-m-d');
-        $nuevoEstado = "Inactivo";
+        $nuevoEstado = "Anulada";
 
         $datosActualizados = array(
             'estado' => $nuevoEstado,
@@ -131,4 +98,22 @@ class FacturaModel extends CI_Model
     }
         
 
+    public function insertar_factura($data_factura) {
+        $this->db->insert('Factura', $data_factura);
+        return $this->db->insert_id();
+    }
+    
+    public function insertar_detalle($data_detalle) {
+        $this->db->insert('Detalle_Factura', $data_detalle);
+    }
+    
+    public function num_factura() {
+        $query = $this->db->query("SELECT MAX(ID_factura) AS max_id FROM Factura");
+        
+        $row = $query->row();
+        $max_id = $row->max_id;
+        $numero_siguiente =  'A0000' .($max_id + 1);
+
+        return $numero_siguiente;
+    }
 }
