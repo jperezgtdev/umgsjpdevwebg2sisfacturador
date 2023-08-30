@@ -64,6 +64,28 @@ public function eliminarProducto($id_Producto) {
     return redirect('ConsultaProducto');
 }
 
+
+public function bajaFactura($id_factura) {
+
+    $detalles = $this->FacturaModel->obtenerDetallesFactura($id_factura);
+
+    foreach ($detalles as $detalle) {
+        $producto_id = $detalle->id_producto;
+        $cantidad_devuelta = $detalle->cantidad;
+
+
+        $producto = $this->FacturaModel->obtenerProductoPorId($producto_id);
+        $existencia_actual = $producto->existencia;
+
+        $nueva_existencia = $existencia_actual + $cantidad_devuelta;
+
+        $this->FacturaModel->actualizarExistencia($producto_id, $nueva_existencia);
+    }
+
+    $this->FacturaModel->bajaFactura($id_factura);
+
+    redirect('ConsultaFactura');
 }
 
+}
 ?>
