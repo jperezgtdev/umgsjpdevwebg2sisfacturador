@@ -1,0 +1,125 @@
+<?php require_once APPPATH . 'views/Dashboard/partesuperior.php'?>
+
+<?php require_once APPPATH . 'config/timezone_config.php';?>
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="<?php echo base_url('assets/producto/consulta.css'); ?>">
+        <link rel="stylesheet" href="<?php echo base_url('assets/Venta/Factura.css'); ?>">
+        <title>Consulta de Producto</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    </head>
+    <body>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <div class="input-group">
+            <label for="cod_cliente">Código de cliente:</label>
+            <input type="text" name="cod_cliente" id="cod_cliente" required>
+            
+            <label for="fecha">Fecha:</label>
+            <input type="date" name="fecha" id="fecha" required  value="<?php echo date('Y-m-d'); ?>">
+        </div>
+        <br> <br><br> <br><br><br> <br>
+        <div id="detalles">
+            <table id="venta" class="table" style="text-align:center">
+                <thead>
+                    <tr>
+                        <th>Código de producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio unitario</th>
+                        <th>Subtotal</th>
+                        <th><button type="add" class="fas fa-plus  btn-success" style="font-size: 15px" onclick="agregarProducto()"> Agregar </button></th>
+                    </tr>
+                </thead>
+                <tbody id="productos-tabla">
+                    <tr>
+                        <td>
+                            <input type="text" name="cod_producto[]" required>
+                        </td>
+                        <td>
+                            <input type="number" name="cantidad[]" min="1" required>
+                        </td>
+                        <td>
+                            <input type="number" name="precio_unitario[]" min="0.01" step="0.01" required>
+                        </td>
+                        <td>
+                            <input type="number" name="monto_total[]" readonly>
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"><strong></strong></td>
+                        <td><label id="total" style="font-size: 25px"></label></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <button type="Guardar" class="far fa-save btn-info" value="Guardar" style="font-size: 18px"> Guardar </button>
+
+        <div id=fechaF>
+            
+        </div>
+
+    </form>
+
+    <script>
+        function agregarProducto() {
+            let table = document.querySelector("table tbody");
+            let tr = document.createElement("tr");
+            let codigo = document.createElement("td");
+            codigo.innerHTML = '<input type="text" name="cod_producto[]" required>';
+            let cantidad = document.createElement("td");
+            cantidad.innerHTML = '<input type="number" name="cantidad[]" min="1" required>';
+            let precio = document.createElement("td");
+            precio.innerHTML = '<input type="number" name="precio_unitario[]" min="0.01" step="0.01" required>';
+            let total = document.createElement("td");
+            total.innerHTML = '<input type="number" name="monto_total[]" readonly>';
+            let button = document.createElement("td");
+            button.innerHTML = '<button type="button" class="btn btn-danger" onclick="eliminarProducto(this)">Eliminar</button>';
+            tr.appendChild(codigo);
+            tr.appendChild(cantidad);
+            tr.appendChild(precio);
+            tr.appendChild(total);
+            tr.appendChild(button);
+            table.appendChild(tr);
+        }
+
+        function eliminarProducto(button) {
+            let tr = button.parentNode.parentNode;
+            tr.parentNode.removeChild(tr);
+            calcularTotal();
+        }
+
+        function calcularTotal() {
+            let total = 0;
+            let monto_total = document.getElementsByName("monto_total[]");
+            for (let i = 0; i < monto_total.length; i++) {
+                total += parseFloat(monto_total[i].value);
+            }
+            document.getElementById("total").innerHTML = "Total: Q" + total.toFixed(2);
+        }
+
+        let detalles = document.querySelector("#detalles");
+        detalles.addEventListener("input", function(event) {
+            let target = event.target;
+            if (target.name === "cantidad[]" || target.name === "precio_unitario[]") {
+                let tr = target.parentNode.parentNode;
+                let cantidad = parseFloat(tr.querySelector("[name='cantidad[]']").value);
+                let precio = parseFloat(tr.querySelector("[name='precio_unitario[]']").value);
+                let total = cantidad * precio;
+                tr.querySelector("[name='monto_total[]']").value = total.toFixed(2);
+                calcularTotal();
+            }
+        });
+    </script>
+</body>
+</html>

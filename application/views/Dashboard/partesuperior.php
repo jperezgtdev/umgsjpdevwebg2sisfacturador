@@ -116,7 +116,7 @@
                 <div id="FACTURAS" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Administración de FACTURAS</h6>
-                        <a class="collapse-item" href="<?= site_url('ConsultaFactura') ?>">Registrar Usuario
+                        <a class="collapse-item" href="<?= site_url('Facturar') ?>">Facturar
                         </a>
                         <a class="collapse-item" href="">Usuarios existentes
                         </a>

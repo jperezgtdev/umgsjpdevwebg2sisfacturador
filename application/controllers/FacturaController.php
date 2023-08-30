@@ -16,10 +16,9 @@ public function indexFactura() {
     $this->load->view('Factura/ConsultaFactura', $data);
 }
 
-public function indexAlta() {
+public function Facturacion() {
     verificar_autenticacion($this);
-    $data['categorias'] = $this->ProductoModel->getCategoria();
-    $this->load->view ('Producto/IngresarProducto',$data);
+    $this->load->view ('Factura/VFacturacion');
 }  
 public function guardarCambios($id_Producto) {
     $referer = $_SERVER['HTTP_REFERER'];
