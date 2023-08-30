@@ -64,6 +64,38 @@ public function eliminarProducto($id_Producto) {
     return redirect('ConsultaProducto');
 }
 
+public function cargar_cliente(){
+    $term = $this->input->get('q'); 
+    $clientes = $this->FacturaModel->buscar_cliente($term);
+
+    $response = [];
+    foreach ($clientes as $cliente) {
+        $response[] = [
+            'id' => $cliente['id_cliente'],
+            'nit' => $cliente['nit'],
+            'text' => $cliente['nombre']
+        ];
+    }
+
+    echo json_encode($response);
+}
+
+
+
+public function cargar_producto(){
+    $term = $this->input->get('q'); 
+    $productos = $this->FacturaModel->buscar_producto($term);
+    $response = [];
+    foreach ($productos as $producto) {
+        $response[] = [
+            'id' => $producto['id_producto'],
+            'text' => $producto['producto'],
+        ];
+    }
+
+    echo json_encode($response);
+}
+
 }
 
 ?>

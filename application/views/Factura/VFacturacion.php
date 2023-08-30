@@ -9,22 +9,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="<?php echo base_url('assets/producto/consulta.css'); ?>">
         <link rel="stylesheet" href="<?php echo base_url('assets/Venta/Factura.css'); ?>">
-        <title>Consulta de Producto</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+   
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <title>Consulta de Producto</title>
     </head>
     <body>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-    <div class="input-group">
-            <label for="cod_cliente">Código de cliente:</label>
-            <input type="text" name="cod_cliente" id="cod_cliente" required>
-            
-            <label for="fecha">Fecha:</label>
-            <input type="date" name="fecha" id="fecha" required  value="<?php echo date('Y-m-d'); ?>">
+
+    <div class="row">
+        <div class="col1"><label for="cod_cliente">Cliente:</label><BR> 
+        <select id="cliente" name="cliente" class="custom-select2">
+                                
+                                </select>
         </div>
-        <br> <br><br> <br><br><br> <br>
+        <div class="col2">
+            <label for="fecha">Fecha:</label>
+        <input type="date" name="fecha" id="fecha" value="<?php echo date('Y-m-d'); ?>" >
+    </div>
+    </div>
+    
+        <br> <br>
         <div id="detalles">
             <table id="venta" class="table" style="text-align:center">
                 <thead>
@@ -39,7 +51,8 @@
                 <tbody id="productos-tabla">
                     <tr>
                         <td>
-                            <input type="text" name="cod_producto[]" required>
+                        <select id="producto" name="producto[]" class="custom-selectProducto" min="1" required>     
+                        </select>
                         </td>
                         <td>
                             <input type="number" name="cantidad[]" min="1" required>
@@ -72,26 +85,53 @@
     </form>
 
     <script>
-        function agregarProducto() {
-            let table = document.querySelector("table tbody");
-            let tr = document.createElement("tr");
-            let codigo = document.createElement("td");
-            codigo.innerHTML = '<input type="text" name="cod_producto[]" required>';
-            let cantidad = document.createElement("td");
-            cantidad.innerHTML = '<input type="number" name="cantidad[]" min="1" required>';
-            let precio = document.createElement("td");
-            precio.innerHTML = '<input type="number" name="precio_unitario[]" min="0.01" step="0.01" required>';
-            let total = document.createElement("td");
-            total.innerHTML = '<input type="number" name="monto_total[]" readonly>';
-            let button = document.createElement("td");
-            button.innerHTML = '<button type="button" class="btn btn-danger" onclick="eliminarProducto(this)">Eliminar</button>';
-            tr.appendChild(codigo);
-            tr.appendChild(cantidad);
-            tr.appendChild(precio);
-            tr.appendChild(total);
-            tr.appendChild(button);
-            table.appendChild(tr);
-        }
+    function agregarProducto() {
+        let table = document.querySelector("table tbody");
+        let tr = document.createElement("tr");
+        
+        // Código de producto
+        let codigo = document.createElement("td");
+        codigo.innerHTML = '<select name="cod_producto[]" class="custom-selectProducto"></select>';
+
+        // Cantidad
+        let cantidad = document.createElement("td");
+        cantidad.innerHTML = '<input type="number" name="cantidad[]" min="1" required>';
+
+        // Precio unitario
+        let precio = document.createElement("td");
+        precio.innerHTML = '<input type="number" name="precio_unitario[]" min="0.01" step="0.01" required>';
+
+        // Subtotal
+        let total = document.createElement("td");
+        total.innerHTML = '<input type="number" name="monto_total[]" readonly>';
+
+        // Botón Eliminar
+        let button = document.createElement("td");
+        button.innerHTML = '<button type="button" class="btn btn-danger" onclick="eliminarProducto(this)">Eliminar</button>';
+        
+        tr.appendChild(codigo);
+        tr.appendChild(cantidad);
+        tr.appendChild(precio);
+        tr.appendChild(total);
+        tr.appendChild(button);
+        table.appendChild(tr);
+
+        // Inicializar el selector de productos para el nuevo elemento
+        $(tr).find(".custom-selectProducto").select2({
+            placeholder: 'Producto',
+            minimumInputLength: 1,
+            ajax: {
+                url: '<?= site_url('FacturaController/cargar_producto') ?>',
+                dataType: 'json',
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            }
+        });
+    }
 
         function eliminarProducto(button) {
             let tr = button.parentNode.parentNode;
@@ -121,5 +161,42 @@
             }
         });
     </script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<Script>
+$(document).ready(function() {
+                $('.custom-select2').select2({
+                    placeholder: 'Cliente',
+                    minimumInputLength: 1,
+                    ajax: {
+                        url: '<?= site_url('FacturaController/cargar_cliente') ?>',
+                        dataType: 'json',
+                        processResults: function(data) {
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    }
+                });
+            });
+
+            $(document).ready(function() {
+                $('.custom-selectProducto').select2({
+                    placeholder: 'Producto',
+                    minimumInputLength: 1,
+                    ajax: {
+                        url: '<?= site_url('FacturaController/cargar_producto') ?>',
+                        dataType: 'json',
+                        processResults: function(data) {
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    }
+                });
+            });
+        </script>
 </body>
 </html>
