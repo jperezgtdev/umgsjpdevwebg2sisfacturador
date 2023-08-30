@@ -69,13 +69,12 @@
                                 <td class="td_boton">
 
                                 
-                                    <a href=""
-                                        class="edit-btn" data-bs-toggle="modal" data-bs-target="#editarModal"
-                                        data-cliente=''>Ver detalle
+                                <a href=""
+                                        class="edit-btn" >Ver Factura
                                     </a>
-                                    <a id="EliminarUsuario"
-                                        href=""
-                                        class="delete-btn">Anular Factura
+                                    <a id="EliminarCompra"
+                                        href="<?= site_url('FacturaController/bajaFactura/' . $row->id_factura); ?>"
+                                        class="delete-btn">Eliminar
                                     </a>
                                 </td>
                                 
@@ -85,44 +84,7 @@
                 </table>
             </div>
         </main>
-        <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editarModalLabel">Datos del producto</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editForm" action="" method="POST">
-                            <div>
-                                <label for="editProducto">Nombre de producto </label>
-                                <input type="text" id="editProducto" name="editProducto" placeholder="Ingrese el nombre del producto">
-                            </div>
-                            <br>
-                            <div>
-                                <label for="editCategoria">Categoria </label>
-                                <select id="editCategoria" name="editCategoria">
-                                    <?php foreach ($categorias as $categoria): ?>
-                                        <option value="<?php echo $categoria['id_categoria']; ?>"><?php echo $categoria['categoria']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <br>
-                            <div>
-                                <label for="editExistencia">Existencia </label>
-                                <input type="text" id="editExistencia" name="editExistencia"
-                                    placeholder="Ingrese la existencia">
-                            </div>
-                            <br>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button id="guardarCambiosBtn" type="button" class="btn btn-primary">Editar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -134,40 +96,7 @@
             });
         </script>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const editButtons = document.querySelectorAll('.edit-btn');
-                const editForm = document.getElementById('editForm');
-                const guardarCambiosBtn = document.getElementById('guardarCambiosBtn');
-                let saveChangesUrl = '';
-
-                editButtons.forEach(button => {
-                    button.addEventListener('click', function (event) {
-                        event.preventDefault();
-                        const productoData = JSON.parse(button.getAttribute('data-cliente'));
-                        const editProductoInput = document.getElementById('editProducto');
-                        const editCategoriaInput = document.getElementById('editCategoria');
-                        const editExistenciaInput = document.getElementById('editExistencia');
-
-                        editProductoInput.value = productoData.producto;
-                        //editCategoriaInput.value = productoData.id_categoria;
-                        editExistenciaInput.value = productoData.existencia;
-                        saveChangesUrl = '<?php echo site_url("ProductoController/guardarCambios/' + productoData.id_producto + '"); ?>';
-                        editCategoriaInput.querySelector(`option[value="${productoData.id_categoria}"]`).selected = true;
-                        $('#editarModal').modal('show');
-
-                    });
-                });
-
-                guardarCambiosBtn.addEventListener('click', function (event) {
-                    if (saveChangesUrl) {
-                        editForm.action = saveChangesUrl;
-                        editForm.submit(); // Envía el formulario
-                    }
-                });
-            });
-        </script>
-
+        
 
         <script>
             const deleteLinks = document.querySelectorAll('.delete-btn');
