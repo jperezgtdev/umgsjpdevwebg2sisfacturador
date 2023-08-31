@@ -91,7 +91,7 @@ class UsuarioController extends CI_Controller
 
         } else {
            
-            redirect('/');
+            redirect('RegistroUsuario');
         }
     }
 

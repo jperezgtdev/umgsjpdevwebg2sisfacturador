@@ -11,14 +11,11 @@
         <link rel="stylesheet" href="<?php echo base_url('assets/usuario/alta.css'); ?>"> 
     </head>
     <body>
-        <header>
-            <h1>Registro de Nuevo Cliente</h1>
-        </header>
         <section>
             <div class="form-box">
                 <div class="form-value">
                     <h2>Crear Cliente</h2>
-                    <form id="userForm" action="<?= site_url('ClienteController/crear_cliente') ?>" method="post" onsubmit="return validateForm()">
+                    <form id="userForm" action="<?= site_url('ClienteController/crear_cliente') ?>" method="post">
                         <div class="inputbox">
                             <i class="fa-solid fa-user fa-lg"></i>
                             <input type="text" id="nombreC" name="nombreC" required>
@@ -49,4 +46,3 @@
         </script>
     </body>
 </html>
-<?php //require_once APPPATH . 'views/Dashboard/parteinferior.php'?>

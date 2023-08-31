@@ -23,7 +23,7 @@ class CompraController extends CI_Controller {
     }   
     public function cargar_productos()
     {
-        $term = $this->input->get('q'); // Término de búsqueda enviado por Select2
+        $term = $this->input->get('q');
         $productos = $this->CompraModel->buscar_productos($term);
 
         $response = [];
@@ -68,7 +68,7 @@ class CompraController extends CI_Controller {
             
         } else {
            
-            redirect('/');
+            redirect('AltaCompra');
         }
     }
 

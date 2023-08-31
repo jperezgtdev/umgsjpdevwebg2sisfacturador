@@ -13,9 +13,6 @@
     </head>
 
     <body>
-        <header>
-            <h1>Consulta de Usuarios</h1>
-        </header>
         <main>
             <div class="nuevo-producto">
                 <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('UsuarioController/indexAlta')?>">
@@ -198,7 +195,7 @@
 
                     Swal.fire({
                         title: '¿Estás seguro?',
-                        text: "El Cliente será eliminado",
+                        text: "El usuario será eliminado",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -209,7 +206,7 @@
                         if (result.isConfirmed) {
                             Swal.fire({
                                 title: 'Eliminado!',
-                                text: 'El Cliente ha sido Eliminado',
+                                text: 'El usuario ha sido Eliminado',
                                 icon: 'success',
                                 confirmButtonColor: '#3085d6'
                             }).then(() => {

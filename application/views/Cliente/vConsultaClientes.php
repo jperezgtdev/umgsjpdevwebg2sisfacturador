@@ -13,9 +13,6 @@
     </head>
 
     <body>
-        <header>
-            <h1>Consulta de Clientes</h1>
-        </header>
         <main>
             <div class="nuevo-producto">
                 <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('ClienteController/altasCliente')?>">
@@ -89,30 +86,30 @@
                     <div class="modal-body">
                         <form id="editForm" action="" method="POST">
                             <div>
-                                <label for="editCliente">Nombre de Cliente:</label>
+                                <label for="editCliente">Nombre de Cliente </label>
                                 <input type="text" id="editCliente" name="editCliente"
                                     placeholder="Ingrese el nombre de usuario">
                             </div>
                             <br>
                             <div>
-                                <label for="editNit">Nit:</label>
+                                <label for="editNit">Nit </label>
                                 <input type="text" id="editNit" name="editNit" placeholder="Ingrese el nit">
                             </div>
                             <br>
                             <div>
-                                <label for="editDireccion">Direccion:</label>
+                                <label for="editDireccion">Direccion </label>
                                 <input type="text" id="editDireccion" name="editDireccion" placeholder="Ingrese la dirección">
                             </div>
                             <br>
                             <div>
-                                <label for="editTelefono">Telefono:</label>
+                                <label for="editTelefono">Telefono </label>
                                 <input type="text" id="editTelefono" name="editTelefono" placeholder="Ingrese el teléfono">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button id="guardarCambiosBtn" type="button" class="btn btn-primary">Guardar Cambios</button>
+                        <button id="guardarCambiosBtn" type="button" class="btn btn-primary">Editar</button>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require_once APPPATH . 'config/timezone_config.php';
 class FacturaController extends CI_Controller {
 
 public function __construct() {
@@ -24,8 +25,6 @@ public function Facturacion() {
     $this->load->view ('Factura/VFacturacion', $data);
 }  
 
-
-
 public function cargar_cliente(){
     $term = $this->input->get('q'); 
     $clientes = $this->FacturaModel->buscar_cliente($term);
@@ -41,8 +40,6 @@ public function cargar_cliente(){
 
     echo json_encode($response);
 }
-
-
 
 public function cargar_producto(){
     $term = $this->input->get('q'); 
@@ -64,6 +61,8 @@ public function crear_factura() {
     $cliente_id = $this->input->post('cliente');
     $referencia= $this->input->post('numero_factura');
     $fecha = $this->input->post('fecha');
+    $hora_actual = date("H:i:s");
+    $fecha_con_hora_actual = $fecha . " " . $hora_actual;
     $productos = $this->input->post('producto');
     $cantidades = $this->input->post('cantidad');
     $precios = $this->input->post('precio_unitario');
@@ -79,7 +78,7 @@ public function crear_factura() {
     $data_factura = array(
         'id_cliente' => $cliente_id,
         'referencia' => $referencia,
-        'fecha' => $fecha,
+        'fecha' => $fecha_con_hora_actual,
         'serie' => $serie,
         'numero' => $numero,
         'authorization'=> $autorizacion,

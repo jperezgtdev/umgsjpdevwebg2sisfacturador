@@ -10,9 +10,6 @@
         <link rel="stylesheet" href="<?php echo base_url('assets/producto/alta.css'); ?>">
         <title>Ingreso de producto</title>
     </head>
-    <header>
-        <h1>Ingreso de Producto</h1>
-    </header>
     <body>
         <section>
             <div class="form-box">
@@ -23,6 +20,11 @@
                             <i class="fa-solid fa-pen-to-square"></i>
                             <input type="text" id="editProducto" name="editProducto" required>
                             <label for="editProducto">nombre de Producto</label>
+                        </div>
+                        <div class="inputbox">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <input type="text" id="editExistencia" name="editExistencia" required>
+                            <label for="editExistencia">Cantidad</label>
                         </div>
                         <div class="rol-select">
                             <div class="row-select">
@@ -35,11 +37,6 @@
                                 <option value="<?php echo $categoria['id_categoria']; ?>"><?php echo $categoria['categoria']; ?></option>
                                 <?php endforeach; ?>
                             </select>
-                        </div>
-                        <div class="inputbox">
-                            <i class="fa-solid fa-circle-plus"></i>
-                            <input type="text" id="editExistencia" name="editExistencia" required>
-                            <label for="editExistencia">Cantidad</label>
                         </div>
                         <button type="submit">Ingresar</button>
                     </form>
@@ -66,4 +63,3 @@
         </script>
     </body>
 </html>
-<?php //require_once APPPATH . 'views/Dashboard/parteinferior.php'?>

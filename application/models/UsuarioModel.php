@@ -28,50 +28,41 @@ class UsuarioModel extends CI_Model {
     }
 
     public function insertar_usuario($data) {
-        // Insertar el registro en la tabla "Usuario"
         $this->db->insert('Usuario', $data);
     }
 
     public function buscar_empleado($nombre) {
-        // Consulta para buscar el empleado por nombre en la tabla 'Persona'
         $this->db->select('*');
         $this->db->from('Persona');
         $this->db->where('nombre', $nombre);
         $query = $this->db->get();
 
-        // Verificar si se encontró el empleado
         if ($query->num_rows() > 0) {
-            return $query->row_array(); // Devolver los datos del empleado como un arreglo asociativo
+            return $query->row_array(); 
         } else {
-            return FALSE; // Devolver FALSE si el empleado no existe
+            return FALSE; 
         }
     }
 
     public function buscar_username($username){
-        // Verificar si el username ya existe en la tabla 'Usuario'
         $this->db->select('id_usuario');
         $this->db->from('Usuario');
         $this->db->where('usuario', $username);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
-            // Si hay resultados, el username ya existe, muestra un alert
             return TRUE;
-            //echo "<script>alert('El nombre de usuario ya existe. Por favor, elige otro nombre.');window.history.back();</script>";
         }
     }
 
     public function buscar_person($id_persona){
-        // Verificar si el empleado ya tiene usuario en la tabla 'Usuario'
         $this->db->select('id_persona');
         $this->db->from('Usuario');
         $this->db->where('id_persona', $id_persona);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
-            // Si hay resultados, el username ya existe, muestra un alert
             return TRUE;
-            //echo "<script>alert('El nombre de usuario ya existe. Por favor, elige otro nombre.');window.history.back();</script>";
         }
     }
 
@@ -94,13 +85,13 @@ class UsuarioModel extends CI_Model {
     
 
     public function bajaUsuario($idUsuario) {
-        // Crear un arreglo con los datos a actualizar
-
+        $usuario_mod = $this->session->userdata('id_usuario');
+        $fecha_mod = date('Y-m-d');
         $nuevoEstado = "Inactivo";
         $estadoActualizado = array(
+            'usuario_mod' => $usuario_mod,
+            'fecha_mod' => $fecha_mod,
             'estado' => $nuevoEstado
-            
-            // Agrega aquí otros campos que desees actualizar en la tabla usuario
         );
     
         // Realizar la actualización en la base de datos
@@ -111,13 +102,13 @@ class UsuarioModel extends CI_Model {
         $this->db->select('u.id_usuario, u.usuario, r.rol, u.clave ');
         $this->db->from('usuario u');
         $this->db->join('rol r', 'u.id_rol = r.id_rol');
-        $this->db->like('u.usuario', $nombre); // Filtrar por nombre de usuario
+        $this->db->like('u.usuario', $nombre);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
-            return $query->result(); // Devolver un array con los resultados
+            return $query->result();
         } else {
-            return array(); // Devolver un array vacío si no hay datos
+            return array();
         }
     }
 

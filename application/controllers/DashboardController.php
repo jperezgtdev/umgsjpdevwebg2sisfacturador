@@ -8,8 +8,6 @@ class DashboardController extends CI_Controller {
         $this->load->helper('autenticacion');
     }
 
-
-
     public function index() {
         verificar_autenticacion($this);
         $this->load->view('vDashboard'); 

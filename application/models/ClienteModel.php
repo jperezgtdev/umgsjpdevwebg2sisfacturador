@@ -43,9 +43,9 @@ class ClienteModel extends CI_Model {
         $query = $this->db->get();
     
         if ($query->num_rows() > 0) {
-            return $query->row(); // Devolver un solo resultado (la fila con los datos del usuario y su rol)
+            return $query->row();
         } else {
-            return null; // Devolver null si no hay datos
+            return null;
         }
     }
 

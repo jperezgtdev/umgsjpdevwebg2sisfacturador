@@ -22,16 +22,20 @@ public function indexAlta() {
     $this->load->view ('Producto/IngresarProducto',$data);
 }  
 public function guardarCambios($id_Producto) {
-    $referer = $_SERVER['HTTP_REFERER'];
 
-    $nuevoProducto = $this->input->post('editProducto');
-    $nuevaCategoria = $this->input->post('editCategoria');
-    $nuevaExistencia = $this->input->post('editExistencia');
-    $usuario_mod = $this->session->userdata('id_usuario'); 
-    $fecha_mod = date("Y-m-d");
-    
-    $this->ProductoModel->actualizarProducto($id_Producto, $nuevoProducto, $nuevaCategoria, $nuevaExistencia,$usuario_mod, $fecha_mod);
-    return redirect('ConsultaProducto');
+    if ($this->input->server('REQUEST_METHOD') === 'POST') {
+        $nuevoProducto = $this->input->post('editProducto');
+        $nuevaCategoria = $this->input->post('editCategoria');
+        $nuevaExistencia = $this->input->post('editExistencia');
+        $usuario_mod = $this->session->userdata('id_usuario'); 
+        $fecha_mod = date("Y-m-d");
+        
+        $this->ProductoModel->actualizarProducto($id_Producto, $nuevoProducto, $nuevaCategoria, $nuevaExistencia,$usuario_mod, $fecha_mod);
+        return redirect('ConsultaProducto');
+    }else {
+           
+        redirect('ConsultaProducto');
+    }
 }
 
 public function nuevoProducto(){
@@ -55,7 +59,7 @@ public function nuevoProducto(){
         redirect('ConsultaProducto');
 
     } else {
-        redirect('LoginController');
+        redirect('AltaProducto');
     }
     
 }

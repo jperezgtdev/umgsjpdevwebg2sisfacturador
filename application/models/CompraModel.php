@@ -4,10 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class CompraModel extends CI_Model {
 
     public function getCompraData() {
+        $estado="Activo";
         $this->db->select('c.id_compra, p.producto, c.precio_compra, c.cantidad');
         $this->db->from('compra c');
         $this->db->join('producto p', 'c.id_producto = p.id_producto');
-        $this->db->where('c.estado','Activo');
+        $this->db->where('c.estado',$estado);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
@@ -49,10 +50,11 @@ class CompraModel extends CI_Model {
     }
 
     public function buscar_productos($term) {
-        $this->db->select('id_producto, producto'); // Seleccionar solo las columnas necesarias
-        $this->db->from('producto'); // 'producto' es el nombre de la tabla en la base de datos
-        $this->db->like('producto', $term); // Aplicar el término de búsqueda en la columna 'producto'
-        $this->db->where('estado', 'Activo');
+        $estado="Activo";
+        $this->db->select('id_producto, producto');
+        $this->db->from('producto');
+        $this->db->like('producto', $term);
+        $this->db->where('estado', $estado);
         $query = $this->db->get();
     
         if ($query->num_rows() > 0) {
@@ -63,7 +65,6 @@ class CompraModel extends CI_Model {
     }    
 
     public function insertar_Compra($data) {
-        // Insertar el registro en la tabla "Usuario"
         $this->db->insert('Compra', $data);
     }
 

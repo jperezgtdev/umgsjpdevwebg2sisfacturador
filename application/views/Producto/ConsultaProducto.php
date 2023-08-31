@@ -13,9 +13,6 @@
     </head>
 
     <body>
-        <header>
-            <h1>Consulta de Productos</h1>
-        </header>
         <main>
             <div class="nuevo-producto">
                 <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('ProductoController/indexAlta')?>">

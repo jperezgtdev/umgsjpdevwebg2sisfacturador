@@ -11,11 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/usuario/alta.css'); ?>">
 
-    <title>Formulario de Creación de Usuario</title>
+    <title>Creación de Usuario</title>
 </head>
-<header>
-    <h1>Registro de Usuario</h1>
-</header>
 <body>
     <section>
         <div class="form-box">
