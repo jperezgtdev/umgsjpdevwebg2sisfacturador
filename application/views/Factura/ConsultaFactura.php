@@ -85,9 +85,9 @@
 
 
                                 <td class="td_boton">
-                                <a href=""
-                                        class="edit-btn mr-2" >Ver Factura
-                                    </a>
+                                <a href="<?= site_url('FacturaController/facturaPdf/' . $row->id_factura); ?>"
+                                        class="edit-btn" target="_blank">Ver Factura
+                                </a>
                                     
                                     <?php if ($row->estado == 'Emitida'): ?>
                                     <a id="AnularFactura"

@@ -67,8 +67,6 @@ class FacturaModel extends CI_Model
     }    
     
 
-
-   
     public function bajaFactura($id_factura)
     {
         $usuario_mod = $this->session->userdata('id_usuario');
@@ -115,5 +113,18 @@ class FacturaModel extends CI_Model
         $numero_siguiente =  'A0000' .($max_id + 1);
 
         return $numero_siguiente;
+    }
+
+    public function getDetalles($id_factura){
+        $this->db->select('c.nombre AS clien,c.direccion, c.nit AS nit, u.usuario AS atendio, f.serie, f.numero, f.authorization, f.fecha AS fecha, df.cantidad, pr.producto, df.precio');
+        $this->db->from('Detalle_Factura df');
+        $this->db->join('Factura f', 'df.id_factura = f.id_factura');
+        $this->db->join('Cliente c', 'f.id_cliente = c.id_cliente');
+        $this->db->join('Usuario u', 'f.usuario_crear = u.id_usuario');
+        $this->db->join('Producto pr', 'df.id_producto = pr.id_producto');
+        $this->db->where('f.id_factura', $id_factura);
+        
+        $query = $this->db->get();
+        return $query->result();
     }
 }
