@@ -142,7 +142,7 @@ public function crear_factura() {
         $this->FacturaModel->insertar_detalle($data_detalle);
     }
 
-   
+    redirect('ConsultaFactura');
 }	
 
 

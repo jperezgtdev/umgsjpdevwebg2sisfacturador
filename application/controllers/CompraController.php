@@ -60,17 +60,14 @@ class CompraController extends CI_Controller {
 
             $this->CompraModel->insertar_compra($data);
 
-            // Actualizar la existencia del producto en la tabla de productos
             $existencia_actual = $this->CompraModel->obtener_existencia($producto);
             $nueva_existencia = $existencia_actual + $cantidad;
 
             $this->CompraModel->actualizar_existencia($producto, $nueva_existencia);
-
-            // Redirigir a otra página o mostrar un mensaje de éxito
-            echo '<script>alert("Compra ingresada exitosamente.");</script>';
             redirect('ConsultaCompra');
+            
         } else {
-            // Si se intenta acceder directamente a la URL del controlador sin enviar el formulario, redirigir a la página de inicio.
+           
             redirect('/');
         }
     }

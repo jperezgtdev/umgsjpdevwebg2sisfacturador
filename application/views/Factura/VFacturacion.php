@@ -22,82 +22,80 @@
 </head>
 
 <body>
-<main>
-    <form id="userForm" action="<?= site_url('FacturaController/crear_factura') ?>" method="post"
-        onsubmit="return validateForm()">
+    <main>
+        <form id="userForm" action="<?= site_url('FacturaController/crear_factura') ?>" method="post"
+            onsubmit="return validateForm()">
 
-        <div class="row d-flex justify-content-center align-items-center">
-            <div class="col-md-4">
-                <label for="cod_cliente">Cliente:</label><BR>
-                <select id="cliente" name="cliente" class="custom-select2">
-                    <!-- Opciones del select -->
-                </select>
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-md-4">
+                    <label for="cod_cliente">Cliente:</label><BR>
+                    <select id="cliente" name="cliente" class="custom-select2">
+                        <!-- Opciones del select -->
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <!-- Input de fecha -->
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" name="fecha" id="fecha" class="form-control" style="width: 200px;"
+                        value="<?php echo date('Y-m-d'); ?>">
+                </div>
+                <div class="col-md-4">
+                    <label for="numero_factura" class="mr-2">Factura No.</label>
+                    <input type="text" name="numero_factura" id="numero_factura" value="<?php echo $numero_factura; ?>"
+                        readonly class="form-control" style="width: 100px;">
+                </div>
             </div>
-            <div class="col-md-4">
-                <!-- Input de fecha -->
-                <label for="fecha">Fecha:</label>
-                <input type="date" name="fecha" id="fecha" class="form-control" style="width: 200px;"
-                    value="<?php echo date('Y-m-d'); ?>">
+            <br> <br>
+
+
+            <div id="detalles" class="table-responsive">
+                <table id="venta" class="table" style="text-align:center">
+                    <thead>
+                        <tr>
+                            <th>Código de producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio unitario</th>
+                            <th>Subtotal</th>
+                            <th><button type="add" class="fas fa-plus btn btn-success" style="font-size: 15px"
+                                    onclick="agregarProducto()"> Agregar </button></th>
+                        </tr>
+                    </thead>
+                    <tbody id="productos-tabla">
+                        <tr>
+                            <td>
+                                <select id="producto" name="producto[]" class="custom-selectProducto" min="1" required>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="cantidad[]" min="1" required>
+                            </td>
+                            <td>
+                                <input type="number" name="precio_unitario[]" min="0.01" step="0.01" required>
+                            </td>
+                            <td>
+                                <input type="number" name="monto_total[]" readonly>
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"><strong></strong></td>
+                            <td><label id="total" style="font-size: 25px"></label></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
-            <div class="col-md-4">
-                <label for="numero_factura" class="mr-2">Factura No.</label>
-                <input type="text" name="numero_factura" id="numero_factura" value="<?php echo $numero_factura; ?>"
-                    readonly class="form-control" style="width: 100px;">
+
+
+            <button type="Guardar" class="far fa-save btn btn-info" value="Guardar" style="font-size: 17px"> Guardar
+            </button>
             </div>
-        </div>
-        <br> <br>
 
-
-        <div id="detalles" class="table-responsive">
-        <table id="venta" class="table" style="text-align:center">
-                <thead>
-                    <tr>
-                        <th>Código de producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio unitario</th>
-                        <th>Subtotal</th>
-                        <th><button type="add" class="fas fa-plus btn btn-success" style="font-size: 15px"
-                                onclick="agregarProducto()"> Agregar </button></th>
-                    </tr>
-                </thead>
-                <tbody id="productos-tabla">
-                    <tr>
-                        <td>
-                            <select id="producto" name="producto[]" class="custom-selectProducto" min="1" required>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="number" name="cantidad[]" min="1" required>
-                        </td>
-                        <td>
-                            <input type="number" name="precio_unitario[]" min="0.01" step="0.01" required>
-                        </td>
-                        <td>
-                            <input type="number" name="monto_total[]" readonly>
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3"><strong></strong></td>
-                        <td><label id="total" style="font-size: 25px"></label></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-
-
-        <button type="Guardar" class="far fa-save btn btn-info" value="Guardar" style="font-size: 17px"> Guardar
-        </button>
-
-
-        </div>
-
-    </form>
-</main>
+        </form>
+    </main>
     <script>
         function agregarProducto() {
             let table = document.querySelector("table tbody");
@@ -124,7 +122,7 @@
             tr.appendChild(total);
             tr.appendChild(button);
             table.appendChild(tr);
-            
+
             $(tr).find(".custom-selectProducto").select2({
                 placeholder: 'Producto',
                 minimumInputLength: 1,
@@ -169,6 +167,12 @@
             }
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <Script>
