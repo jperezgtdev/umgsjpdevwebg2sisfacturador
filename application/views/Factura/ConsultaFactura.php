@@ -82,8 +82,6 @@
                                 <td>
                                     <?php echo $row->estado; ?>
                                 </td>
-
-
                                 <td class="td_boton">
                                 <a href="<?= site_url('FacturaController/facturaPdf/' . $row->id_factura); ?>"
                                         class="edit-btn" target="_blank">Ver Factura

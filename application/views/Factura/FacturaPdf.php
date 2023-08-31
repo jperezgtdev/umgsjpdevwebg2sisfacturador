@@ -59,7 +59,7 @@
         }
 
         .quantity-cell {
-            width: 10%;
+            width: 15%;
         }
 
         .contenido{
@@ -122,13 +122,14 @@
             </table>
         </div>
     </div>
-    <div class="contenido" style="height:55%;">
-        <table>
+    <div class="contenido">
+        <table style="height:90%;">
             <thead>
                 <tr>
                     <th class="quantity-cell">Cantidad</th>
                     <th class="product-cell">Producto</th>
-                    <th class="price-cell center_align">Precio</th>
+                    <th class="price-cell center_align">Precio Unitario</th>
+                    <th class="price-cell center_align">Subtotal</th>
                 </tr>
             </thead>
             <tbody>
@@ -136,25 +137,48 @@
                 $total = 0;
 
                 foreach ($detalles as $detalle):
-                    $total += $detalle->precio;
+                    $subtotal = $detalle->cantidad * $detalle->precio; 
+                    $total += $subtotal;
                 ?>
                     <tr>
                         <td class="quantity-cell"><?php echo $detalle->cantidad; ?></td>
                         <td class="product-cell"><?php echo $detalle->producto; ?></td>
                         <td class="price-cell right-align"><?php echo 'Q. ' . number_format($detalle->precio, 2, '.', ','); ?></td>
+                        <td class="price-cell right-align"><?php echo 'Q. ' . number_format($subtotal, 2, '.', ','); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
+        </table>
+        <table>
             <tfoot>
                 <tr>
-                    <td colspan="2" class="total">Total:</td>
-                    <td class="total right-align"><?php echo 'Q. ' . number_format($total, 2, '.', ','); ?></td>
+                    <?php
+                        function numeroALetras($numero) {
+                            $parteEntera = floor($numero);
+                            $parteDecimal = $numero - $parteEntera;
+
+                            $formatter = new NumberFormatter('es', NumberFormatter::SPELLOUT);
+                            $parteEnteraEnPalabras = $formatter->format($parteEntera);
+                        
+                            $parteDecimalFraccion = number_format($parteDecimal, 2, '.', '');
+                            list($entero, $decimal) = explode('.', $parteDecimalFraccion);
+                        
+                            $fraccionEnPalabras = '';
+                            if ($decimal > 0) {
+                                $fraccionEnPalabras = "con $decimal/100";
+                            }
+                    
+                            $numeroEnPalabras = "$parteEnteraEnPalabras $fraccionEnPalabras";
+                        
+                            return $numeroEnPalabras;
+                        }                        
+                        
+                    ?>
+                    <td colspan="3" class="total right-align"><?php echo ' (' . numeroALetras($total) . ' quetzales)';?></td>
+                    <td class="total right-align"><?php echo 'TOTAL Q. ' . number_format($total, 2, '.', ','); ?></td>
                 </tr>
             </tfoot>
         </table>
-        <div class="totalTable">
-            
-        </div>
     </div>
 </body>
 </html>
