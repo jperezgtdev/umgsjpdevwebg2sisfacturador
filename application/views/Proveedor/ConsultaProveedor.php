@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="<?php echo base_url('assets/usuario/consulta.css'); ?>">
-        <title>Consulta de Usuarios</title>
+        <title>Consulta de proveedores</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css">
@@ -15,25 +15,29 @@
     <body>
         <main>
             <div class="nuevo-producto">
-                <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('UsuarioController/indexAlta')?>">
-                    <i class="fas fa-user-plus"></i> Nuevo Usuario
+                <a class="btn btn-success" id="new" style="float: right; margin-right: 2px;" href="<?= site_url('ProveedorController/AltaProveedor')?>">
+                    <i class="fa-solid fa-boxes-packing"></i> Nuevo proveedor
                 </a>
             </div>
             <div id="userList">
-                <table id="ClienteTable" class="table table-hover table-striped">
+                <table id="ProveedorTable" class="table table-hover table-striped">
                     <thead>
                         <tr>
                             <th> 
+                                <i class="fa-solid fa-pen" style="color: #e63946;"></i>
+                                Nit
+                            </th>
+                            <th>
                                 <i class="fa-solid fa-user fa-lg" style="color: #e63946;"></i>
-                                Nombre
+                                Proveedor
                             </th>
                             <th>
-                                <i class="fa-solid fa-users-gear fa-lg" style="color: #e63946;"></i>
-                                Rol
+                                <i class="fa-solid fa-house" style="color: #e63946;"></i>
+                                Direccion
                             </th>
                             <th>
-                                <i class="fa-solid fa-lock" style="color: #e63946;"></i>
-                                Contraseña
+                                <i class="fa-solid fa-phone" style="color: #e63946;"></i>
+                                Telefono
                             </th>
                             <th>
                                 <i class="fa-solid fa-bolt" style="color: #e63946;"></i>
@@ -45,24 +49,24 @@
                         <?php foreach ($prueba_data as $row): ?>
                             <tr>
                                 <td>
-                                    <?php echo $row->usuario; ?>
+                                    <?php echo $row->nit; ?>
                                 </td>
                                 <td>
-                                    <?php echo $row->rol; ?>
+                                    <?php echo $row->nombre; ?>
                                 </td>
-                               <!-- Columna oculta para la clave real -->
-                                <td class="hidden-clave" style="display: none;"><?php echo $row->clave; ?></td>
-                                <!-- Nueva columna para mostrar asteriscos o puntos -->
-                                <td class="clave-oculta">
-                                    <?php echo str_repeat('*', strlen($row->clave)); // Muestra asteriscos igual a la longitud de la clave ?>
+                                <td>
+                                    <?php echo $row->direccion; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row->telefono; ?>
                                 </td>
                                 <td class="td_boton">
-                                    <a href="<?= site_url('UsuarioController/obtenerDatos/' . $row->id_usuario); ?>"
+                                    <a href="<?= site_url('ProveedorController/obtenerProveedores/' . $row->id_proveedor); ?>"
                                         class="edit-btn" data-bs-toggle="modal" data-bs-target="#editarModal"
-                                        data-usuario='<?php echo json_encode($row); ?>'>Editar
+                                        data-proveedor='<?php echo json_encode($row); ?>'>Editar
                                     </a>
-                                    <a id="EliminarUsuario"
-                                        href="<?= site_url('UsuarioController/desactivarUsuario/' . $row->id_usuario); ?>"
+                                    <a id="EliminarProveedor"
+                                        href="<?= site_url('ProveedorController/desactivarProveedor/' . $row->id_proveedor); ?>"
                                         class="delete-btn">Eliminar
                                     </a>
                                 </td>
@@ -76,45 +80,36 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editarModalLabel">Datos del Cliente</h5>
+                        <h5 class="modal-title" id="editarModalLabel">Datos del Proveedor</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="editForm" action="" method="POST">
                             <div>
-                                <label for="editUsuario">Nombre de Usuario </label>
-                                <input type="text" id="editUsuario" name="editUsuario" placeholder="Ingrese el nombre de usuario">
+                                <label for="editCliente">Nombre </label>
+                                <input type="text" id="editCliente" name="editCliente"
+                                    placeholder="Ingrese el nombre de proveedor">
                             </div>
                             <br>
                             <div>
-                                <label for="editRol">Rol </label>
-                                <select id="editRol" name="editRol" required>
-                                    <option value="1">Administrador</option>
-                                    <option value="2">Usuario</option>
-                                </select>     
+                                <label for="editNit">Nit </label>
+                                <input type="text" id="editNit" name="editNit" placeholder="Ingrese el nit">
                             </div>
                             <br>
                             <div>
-                                <label for="claveIngresado">Ingrese clave actual </label>
-                                <input type="password" id="claveIngresado" name="claveIngresado" placeholder="Ingrese la clave">
-                                <input id="clave" name="clave" type="hidden"/>
+                                <label for="editDireccion">Direccion </label>
+                                <input type="text" id="editDireccion" name="editDireccion" placeholder="Ingrese la dirección">
                             </div>
                             <br>
                             <div>
-                                <label for="editClave">Nueva clave </label>
-                                <input type="password" id="editClave" name="editClave" placeholder="Ingrese la clave">
+                                <label for="editTelefono">Telefono </label>
+                                <input type="text" id="editTelefono" name="editTelefono" placeholder="Ingrese el teléfono">
                             </div>
-                            <br>
-                            <div>
-                                <label for="confirmarClave">confirmar clave </label>
-                                <input type="password" id="confirmarClave" name="confirmarClave" placeholder="Ingrese la clave">
-                            </div>
-                            <br>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button id="guardarCambiosBtn" type="button" class="btn btn-primary" onclick="encriptar_pass();">Editar</button>
+                        <button id="guardarCambiosBtn" type="button" class="btn btn-primary">Editar</button>
                     </div>
                 </div>
             </div>
@@ -125,28 +120,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
         <script>
             $(document).ready(function () {
-                $('#ClienteTable').DataTable();
+                $('#ProveedorTable').DataTable();
             });
         </script>
-        <script>
-            function encriptar_pass(){
-                var clave = $('#clave').val();
-                var encriptadoClave = btoa(clave);
-                $("#clave").val(encriptadoClave);
 
-                var claveIngresado = $('#claveIngresado').val();
-                var encriptadoIngresado = btoa(claveIngresado);
-                $("#claveIngresado").val(encriptadoIngresado);
-
-                var editClave = $('#editClave').val();
-                var encriptadoNuevo = btoa(editClave);
-                $("#editClave").val(encriptadoNuevo);
-
-                var confirmarClave = $('#confirmarClave').val();
-                var encriptadoConfirmar = btoa(confirmarClave);
-                $("#confirmarClave").val(encriptadoConfirmar);
-            }
-        </script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const editButtons = document.querySelectorAll('.edit-btn');
@@ -157,22 +134,17 @@
                 editButtons.forEach(button => {
                     button.addEventListener('click', function (event) {
                         event.preventDefault();
-                        const usuarioData = JSON.parse(button.getAttribute('data-usuario'));
-                        const editUsuarioInput = document.getElementById('editUsuario');
-                        const editRolInput = document.getElementById('editRol');
-                        const claveInput = document.getElementById('clave');
+                        const proveedorData = JSON.parse(button.getAttribute('data-proveedor'));
+                        const editProveedorInput = document.getElementById('editCliente');
+                        const editNitInput = document.getElementById('editNit');
+                        const editDireccionInput = document.getElementById('editDireccion');
+                        const editTelefonoInput = document.getElementById('editTelefono');
 
-                        editUsuarioInput.value = usuarioData.usuario;
-                        editRolInput.value = usuarioData.id_rol;
-                        editRolInput.querySelectorAll('option').forEach(option => {
-                            if (option.value === usuarioData.id_rol) {
-                                option.selected = true;
-                            } else {
-                                option.selected = false;
-                            }
-                        });
-                        claveInput.value = usuarioData.clave;
-                        saveChangesUrl = '<?php echo site_url("UsuarioController/guardarCambios/' + usuarioData.id_usuario + '"); ?>';
+                        editProveedorInput.value = proveedorData.nombre;
+                        editNitInput.value = proveedorData.nit;
+                        editDireccionInput.value = proveedorData.direccion;
+                        editTelefonoInput.value = proveedorData.telefono;
+                        saveChangesUrl = '<?php echo site_url("ProveedorController/guardarCambios/' + proveedorData.id_proveedor + '"); ?>';
                         $('#editarModal').modal('show');
 
                     });
@@ -180,12 +152,13 @@
 
                 guardarCambiosBtn.addEventListener('click', function (event) {
                     if (saveChangesUrl) {
-                        editForm.action = saveChangesUrl;
-                        editForm.submit();
+                        editForm.action = saveChangesUrl; // Establece la URL en el atributo action
+                        editForm.submit(); // Envía el formulario
                     }
                 });
             });
         </script>
+
 
         <script>
             const deleteLinks = document.querySelectorAll('.delete-btn');
@@ -198,7 +171,7 @@
 
                     Swal.fire({
                         title: '¿Estás seguro?',
-                        text: "El usuario será eliminado",
+                        text: "El proveedor será eliminado",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -209,7 +182,7 @@
                         if (result.isConfirmed) {
                             Swal.fire({
                                 title: 'Eliminado!',
-                                text: 'El usuario ha sido Eliminado',
+                                text: 'El proveedor ha sido Eliminado',
                                 icon: 'success',
                                 confirmButtonColor: '#3085d6'
                             }).then(() => {

@@ -15,9 +15,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon">
-                    <img class="img-profile rounded-circle" style="width: 50px; height: auto;" src="<?php echo base_url('assets/logo.png'); ?>">
+                    <img class="img-profile rounded-circle" style="width: 40px; height: auto;" src="<?php echo base_url('assets/logo1.png'); ?>">
                 </div>
-                <div class="sidebar-brand-text mx-3">Grupo 2</div>
+                <div class="sidebar-brand-text mx-3">Book Shop</div>
             </a>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
@@ -37,7 +37,7 @@
                 </a>
                 <div id="clientes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion de Clientes</h6>
+                        <h6 class="collapse-header">Gestion de clientes</h6>
                         <a class="collapse-item" href="<?= site_url('AltaCliente') ?>">Añadir Cliente
                         </a>
                         <a class="collapse-item" href="<?= site_url('Clientes') ?>">Clientes
@@ -53,7 +53,7 @@
                 </a>
                 <div id="producto" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion de Ventas</h6>
+                        <h6 class="collapse-header">Gestion de productos</h6>
                         <a class="collapse-item" href="<?= site_url('AltaProducto') ?>">Añadir producto
                         </a>
                         <a class="collapse-item" href="<?= site_url('ConsultaProducto') ?>">Productos
@@ -80,6 +80,11 @@
                 </div>
             </li>
 
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading" style="font-size: 15px;">
+                Compras
+            </div>
+
             <!-- Apartado de Compra -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#compra" aria-expanded="true" aria-controls="compra">
@@ -88,10 +93,27 @@
                 </a>
                 <div id="compra" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestion de Compras</h6>
+                        <h6 class="collapse-header">Gestion de compras</h6>
                         <a class="collapse-item" href="<?= site_url('AltaCompra') ?>">Ingreso de Compras
                         </a>
                         <a class="collapse-item" href="<?= site_url('ConsultaCompra') ?>">Compras
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Apartado de Proveedor -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#proveedor" aria-expanded="true" aria-controls="proveedor">
+                    <i class="fa-solid fa-parachute-box" style="font-size: 15px;"></i>
+                    <span class="nav-link" style="font-size: 15px;">Proveedores</span>
+                </a>
+                <div id="proveedor" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestion de proveedores</h6>
+                        <a class="collapse-item" href="<?= site_url('AltaProveedor') ?>">Ingreso de proveedor
+                        </a>
+                        <a class="collapse-item" href="<?= site_url('ConsultaProveedor') ?>">Proveedores
                         </a>
                     </div>
                 </div>
@@ -122,7 +144,7 @@
             <div class="sidebar-heading" style="font-size: 15px;">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 Sesion
-            <li><a href="<?= site_url('LogoutController/logout')?>">Cerrar Sesion</a></li>
+                <li><a href="<?= site_url('LogoutController/logout')?>">Cerrar Sesion</a></li>
             </div>
 
         </ul>

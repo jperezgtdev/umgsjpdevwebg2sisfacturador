@@ -19,7 +19,7 @@
         </header>
     </div>
     <div class="imagen" style="text-align: center;">
-        <img class="imagen" style="width:700px; height: auto;" src="<?php echo base_url('assets/logo.png'); ?>" alt="Logo" />
+        <img class="imagen" style="width:900px; height: auto;" src="<?php echo base_url('assets/logo.png'); ?>" alt="Logo" />
     </div>
 </body>
 

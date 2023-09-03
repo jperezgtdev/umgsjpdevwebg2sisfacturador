@@ -63,3 +63,5 @@ $route['AltaProducto'] = 'ProductoController/indexAlta';
 $route['ConsultaProducto'] = 'ProductoController/indexConsulta';
 $route['ConsultaFactura'] = 'FacturaController/indexFactura';
 $route['Facturar'] = 'FacturaController/Facturacion';
+$route['ConsultaProveedor'] = 'ProveedorController/ConsultaProveedor';
+$route['AltaProveedor'] = 'ProveedorController/AltaProveedor';

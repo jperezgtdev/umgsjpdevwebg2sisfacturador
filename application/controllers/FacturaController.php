@@ -58,8 +58,9 @@ public function cargar_producto(){
 
 public function crear_factura() {
   
+    $this->db->trans_start();
     $cliente_id = $this->input->post('cliente');
-    $referencia= $this->input->post('numero_factura');
+    $referencia = $this->input->post('numero_factura');
     $fecha = $this->input->post('fecha');
     $hora_actual = date("H:i:s");
     $fecha_con_hora_actual = $fecha . " " . $hora_actual;
@@ -74,6 +75,29 @@ public function crear_factura() {
     $autorizacion = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(strtoupper(bin2hex($autorizacion_aleatoria)), 4));
     $fecha_actual = date("Y-m-d");
     $usuario_crear = $this->session->userdata('id_usuario');
+    $errores = array();
+
+    foreach ($productos as $index => $producto_id) {
+        $cantidad_actual = $this->FacturaModel->obtener_existencia($producto_id);
+
+        if ($cantidad_actual >= $cantidades[$index]) {
+            $nueva_cantidad = $cantidad_actual - $cantidades[$index];
+            $this->FacturaModel->actualizar_existencia($producto_id, $nueva_cantidad);
+        } else {
+            $mensaje_error = "No hay suficiente cantidad en stock para el producto con ID: " . $producto_id;
+            $errores[] = $mensaje_error;
+        }
+    }
+
+    if (!empty($errores)) {
+        $this->db->trans_rollback();
+        $respuesta = array(
+            'success' => false,
+            'errors' => $errores
+        );
+        echo json_encode($respuesta);
+        return; // Terminar la ejecución aquí sin continuar con la creación de la factura y sus detalles
+    }
 
     $data_factura = array(
         'id_cliente' => $cliente_id,
@@ -89,6 +113,7 @@ public function crear_factura() {
         'estado' => 'Emitida'
 
     );
+
     $id_factura = $this->FacturaModel->insertar_factura($data_factura);
 
     foreach ($productos as $index => $producto_id) {
@@ -102,6 +127,7 @@ public function crear_factura() {
         $this->FacturaModel->insertar_detalle($data_detalle);
     }
 
+    $this->db->trans_commit();
     redirect('ConsultaFactura');
 }	
 

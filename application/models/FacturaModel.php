@@ -127,4 +127,16 @@ class FacturaModel extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function obtener_existencia($id_producto) {
+        $this->db->select('existencia');
+        $this->db->where('id_producto', $id_producto);
+        $query = $this->db->get('producto');
+        $row = $query->row();
+        return ($row) ? $row->existencia : 0;
+    }
+    public function actualizar_existencia($id_producto, $nueva_existencia) {
+        $this->db->where('id_producto', $id_producto);
+        $this->db->update('producto', array('existencia' => $nueva_existencia));
+    }
 }
