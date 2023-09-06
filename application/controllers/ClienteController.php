@@ -57,9 +57,8 @@ class ClienteController extends CI_Controller
     }
 
      public function desactivarUsuario($idCliente) {
-       $data['cliente'] = $this->ClienteModel->bajaUsuario($idCliente);
-        $data['prueba_data'] = $this->ClienteModel->getClienteData();
-        $this->load->view('Cliente/vConsultaClientes', $data);    
+        $this->ClienteModel->bajaUsuario($idCliente);
+        return redirect('ClienteController');    
     }
 
 

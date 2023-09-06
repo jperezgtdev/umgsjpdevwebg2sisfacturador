@@ -39,6 +39,7 @@ class CompraModel extends CI_Model {
         $this->db->update('producto', array('existencia' => $nueva_existencia));
     }
     public function obtener_proveedores() {
+        $this->db->select('id_proveedor, nombre');
         $this->db->where('estado','Activo');
         $query = $this->db->get('proveedor');
         

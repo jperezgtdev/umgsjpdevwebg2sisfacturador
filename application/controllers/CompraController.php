@@ -20,7 +20,8 @@ class CompraController extends CI_Controller {
         verificar_autenticacion($this);
         $data['prueba_data'] = $this->CompraModel->getCompraData();
         $this->load->view('Compra/ConsultaCompra', $data);
-    }   
+    }
+
     public function cargar_productos()
     {
         $term = $this->input->get('q');
@@ -40,7 +41,7 @@ class CompraController extends CI_Controller {
     public function crear_compra()
     {
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
-            $proveedor = $this->input->post('proveedor');
+            $proveedor = $this->input->post('editProveedor');
             $producto = $this->input->post('producto'); 
             $cantidad = $this->input->post('cantidad');
             $precio = $this->input->post('precio');

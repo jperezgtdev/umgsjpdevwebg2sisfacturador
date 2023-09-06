@@ -18,7 +18,7 @@
         <div class="form-box">
             <div class="form-value">
                 <h2>Crear Usuario</h2>
-                <form id="userForm" action="<?= site_url('UsuarioController/crear_usuario') ?>" method="post" onsubmit="return validateForm();">
+                <form id="userForm" action="<?= site_url('UsuarioController/crear_usuario') ?>" method="post" onsubmit="encriptar_pass(); return validateForm();">
                     <div class="inputbox">
                         <i class="fa-solid fa-person"></i>
                         <input type="text" id="person" name="person" required>
@@ -61,15 +61,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
     <script>
         function encriptar_pass(){
-            function encriptar_pass() {
-                var pass = $('#password').val();
-                var encript_password = btoa(pass);
-                $("#password").val(encript_password);
+            var pass = $('#password').val();
+            var confirm_pass = $('#confirm_password').val();
+            
+            var encript_password = btoa(pass);
+            $("#password").val(encript_password);
+            var encript_confirm = btoa(confirm_pass);
+            $("#confirm_password").val(encript_confirm);
 
-                var confirm_pass = $('#confirm_password').val();
-                var encript_confirm = btoa(confirm_pass);
-                $("#confirm_password").val(encript_confirm);
-            }
         }
     </script>
     <script>
@@ -108,6 +107,8 @@
                     .then(() => window.location.href = "<?= site_url('Usuarios') ?>");
                 } else {
                     Swal.fire("Error", data.message, "error");
+                    document.getElementById("password").value = "";
+                    document.getElementById("confirm_password").value = "";
                 }
             })
             .catch(error => {

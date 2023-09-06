@@ -128,7 +128,10 @@ public function crear_factura() {
     }
 
     $this->db->trans_commit();
-    redirect('ConsultaFactura');
+    $response['success'] = true;
+    $response['message'] = "Usuario creado exitosamente.";
+    echo json_encode($response);
+    //redirect('ConsultaFactura');
 }	
 
 

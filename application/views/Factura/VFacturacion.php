@@ -88,14 +88,29 @@
                     </tfoot>
                 </table>
             </div>
-
-
             <button type="Guardar" class="far fa-save btn btn-info" value="Guardar" style="font-size: 17px"> Guardar
             </button>
             </div>
 
         </form>
     </main>
+    <script>
+        function validateForm() {
+            const clienteSelect = $('.custom-select2');
+            const selectedCliente = clienteSelect.val();
+
+            if (selectedCliente === "" || selectedCliente === null) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Por favor, seleccione un cliente antes de enviar',
+                });
+                return false;
+            }
+
+            return true;
+        }
+    </script>
     <script>
         function agregarProducto() {
             let table = document.querySelector("table tbody");
@@ -167,14 +182,40 @@
             }
         });
     </script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        document.getElementById("userForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            if (!validateForm()) {
+                return;
+            }
+            // Realizar una solicitud AJAX
+            fetch(this.action, {
+                method: this.method,
+                body: new FormData(this)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire("Éxito", data.message, "success")
+                    .then(() => window.location.href = "<?= site_url('ConsultaFactura') ?>");
+                } else {
+                    // Mostrar errores en un Sweet Alert
+                    let errorMessages = data.errors.join("<br>");
+                    Swal.fire("Error", errorMessages, "error");
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire("Error", "Ocurrió un error al procesar la solicitud.", "error");
+            });
+        });
+    </script>
     <Script>
         $(document).ready(function () {
             $('.custom-select2').select2({

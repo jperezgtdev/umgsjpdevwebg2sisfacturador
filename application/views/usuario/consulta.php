@@ -95,21 +95,26 @@
                             </div>
                             <br>
                             <div>
-                                <label for="claveIngresado">Ingrese clave actual </label>
-                                <input type="password" id="claveIngresado" name="claveIngresado" placeholder="Ingrese la clave">
-                                <input id="clave" name="clave" type="hidden"/>
+                                <a href="#" id="cambiarContraseñaLink" style="float: right; margin-right: 10px;">Cambiar Contraseña</a>
                             </div>
-                            <br>
-                            <div>
-                                <label for="editClave">Nueva clave </label>
-                                <input type="password" id="editClave" name="editClave" placeholder="Ingrese la clave">
+                            <div id="cambioContraseñaSection" style="display: none;">
+                                <div>
+                                    <label for="claveIngresado">Ingrese clave actual </label>
+                                    <input type="password" id="claveIngresado" name="claveIngresado" placeholder="Ingrese la clave">
+                                    <input id="clave" name="clave" type="hidden"/>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="editClave">Nueva clave </label>
+                                    <input type="password" id="editClave" name="editClave" placeholder="Ingrese la clave">
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="confirmarClave">confirmar clave </label>
+                                    <input type="password" id="confirmarClave" name="confirmarClave" placeholder="Ingrese la clave">
+                                </div>
+                                <br>
                             </div>
-                            <br>
-                            <div>
-                                <label for="confirmarClave">confirmar clave </label>
-                                <input type="password" id="confirmarClave" name="confirmarClave" placeholder="Ingrese la clave">
-                            </div>
-                            <br>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -123,9 +128,26 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
         <script>
             $(document).ready(function () {
                 $('#ClienteTable').DataTable();
+            });
+        </script>
+        <script>
+            // Obtén el enlace y la sección de cambio de contraseña por su ID
+            var cambiarContraseñaLink = document.getElementById("cambiarContraseñaLink");
+            var cambioContraseñaSection = document.getElementById("cambioContraseñaSection");
+
+            // Agrega un evento de clic al enlace "Cambiar Contraseña"
+            cambiarContraseñaLink.addEventListener("click", function(event) {
+                event.preventDefault();
+                
+                // Verifica si la sección de cambio de contraseña está oculta
+                if (cambioContraseñaSection.style.display === "none") {
+                    cambioContraseñaSection.style.display = "block"; // Mostrar la sección
+                    cambiarContraseñaLink.style.display = "none"; // Ocultar el enlace
+                }
             });
         </script>
         <script>
@@ -135,16 +157,22 @@
                 $("#clave").val(encriptadoClave);
 
                 var claveIngresado = $('#claveIngresado').val();
-                var encriptadoIngresado = btoa(claveIngresado);
-                $("#claveIngresado").val(encriptadoIngresado);
+                if (claveIngresado) {
+                    var encriptadoIngresado = btoa(claveIngresado);
+                    $("#claveIngresado").val(encriptadoIngresado);
+                }
 
                 var editClave = $('#editClave').val();
-                var encriptadoNuevo = btoa(editClave);
-                $("#editClave").val(encriptadoNuevo);
+                if (editClave) {
+                    var encriptadoNuevo = btoa(editClave);
+                    $("#editClave").val(encriptadoNuevo);
+                }
 
                 var confirmarClave = $('#confirmarClave').val();
-                var encriptadoConfirmar = btoa(confirmarClave);
-                $("#confirmarClave").val(encriptadoConfirmar);
+                if (confirmarClave) {
+                    var encriptadoConfirmar = btoa(confirmarClave);
+                    $("#confirmarClave").val(encriptadoConfirmar);
+                }
             }
         </script>
         <script>
@@ -181,7 +209,42 @@
                 guardarCambiosBtn.addEventListener('click', function (event) {
                     if (saveChangesUrl) {
                         editForm.action = saveChangesUrl;
-                        editForm.submit();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: saveChangesUrl,
+                            data: $('#editForm').serialize(),
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        title: 'Éxito',
+                                        text: response.message,
+                                        icon: 'success',
+                                        confirmButtonColor: '#3085d6'
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: response.message,
+                                        icon: 'error',
+                                        confirmButtonColor: '#d33'
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                }
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    title: 'Error de conexión',
+                                    text: 'Hubo un problema de conexión con el servidor.',
+                                    icon: 'error',
+                                    confirmButtonColor: '#d33'
+                                });
+                            }
+                        });
                     }
                 });
             });
@@ -220,8 +283,6 @@
                 });
             });
         </script>
-
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js"></script>
     </body>
 
 </html>

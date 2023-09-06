@@ -13,9 +13,6 @@
     </head>
 
     <body>
-        <header>
-            <h1>Facturas</h1>
-        </header>
         <main>
             <h1></h1>
             <div class="nueva-Factura">
@@ -84,15 +81,14 @@
                                 </td>
                                 <td class="td_boton">
                                 <a href="<?= site_url('FacturaController/facturaPdf/' . $row->id_factura); ?>"
-                                        class="edit-btn" target="_blank">Ver Factura
+                                    class="edit-btn" target="_blank">Ver Factura
                                 </a>
-                                    
-                                    <?php if ($row->estado == 'Emitida'): ?>
+                                <?php if ($row->estado == 'Emitida'): ?>
                                     <a id="AnularFactura"
-                                     href="<?= site_url('FacturaController/bajaFactura/' . $row->id_factura); ?>"
-                                     class="delete-btn">Anular
-                                     </a>
-                                    <?php endif; ?>
+                                        href="<?= site_url('FacturaController/bajaFactura/' . $row->id_factura); ?>"
+                                        class="delete-btn">Anular
+                                    </a>
+                                <?php endif; ?>
                                 </td>
                                 
                             </tr>

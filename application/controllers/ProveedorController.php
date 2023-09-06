@@ -52,9 +52,8 @@ class ProveedorController extends CI_Controller
     }
 
      public function desactivarProveedor($idProveedor) {
-        $data['proveedor'] = $this->ProveedorModel->bajaProveedor($idProveedor);
-        $data['prueba_data'] = $this->ProveedorModel->getProveedorData();
-        $this->load->view('Proveedor/ConsultaProveedor', $data);    
+        $this->ProveedorModel->bajaProveedor($idProveedor);
+        redirect('ConsultaProveedor');    
     }
 
 

@@ -24,9 +24,9 @@ class UsuarioController extends CI_Controller
             $nombre = $this->input->post('person');
             $username = $this->input->post('username');
             $password = $this->input->post('password');
-            //$decod_password = base64_decode($password);
+            $decod_password = base64_decode($password);
             $confirm_password = $this->input->post('confirm_password');
-            //$decod_confirm_password = base64_decode($confirm_password);
+            $decod_confirm_password = base64_decode($confirm_password);
             $role = $this->input->post('role');
 
 
@@ -52,14 +52,14 @@ class UsuarioController extends CI_Controller
                     return;
                 }
 
-                if ($password !== $confirm_password) {
+                if ($decod_password !== $decod_confirm_password) {
                     $response['success'] = false;
                     $response['message'] = "Las contraseñas no coinciden. Por favor, inténtelo de nuevo.";
                     echo json_encode($response);
                     return;
                 }
 
-                $encrypted_password = sha1($password);
+                $encrypted_password = sha1($decod_password);
                 $usuario_crear = $this->session->userdata('id_usuario'); 
 
                 $fecha_actual = date("Y-m-d");
@@ -102,9 +102,9 @@ class UsuarioController extends CI_Controller
     }
 
     public function desactivarUsuario($idUsuario) {
-        $data['usuario'] = $this->UsuarioModel->bajaUsuario($idUsuario);
-        $data['prueba_data'] = $this->UsuarioModel->getUsuarioData();
-        $this->load->view('usuario/consulta', $data);    }
+        $this->UsuarioModel->bajaUsuario($idUsuario);
+        return redirect('Usuarios');    
+    }
 
     public function buscarPorNombre() {
         $nombre = $this->input->post('firstName');
@@ -133,22 +133,37 @@ class UsuarioController extends CI_Controller
         $fecha_mod = date("Y-m-d");
         $claveActual = $this->input->post('clave');
         $decod_claveActual = base64_decode($claveActual);
-    
+
+        if (!empty($claveIngresado) && empty($editClave)) {
+            $response['success'] = false;
+            $response['message'] = "La clave nueva está vacía. Por favor, inténtelo de nuevo.";
+            echo json_encode($response);
+            return;
+        }
         if (empty($decod_claveIngresado)) {
             $claveEncriptada = $decod_claveActual;
         } else {
             if (sha1($decod_claveIngresado) !== $decod_claveActual) {
-                return redirect($referer);
+                $response['success'] = false;
+                $response['message'] = "clave actual incorrecta. Por favor, inténtelo de nuevo.";
+                echo json_encode($response);
+                return;
             }
 
             if ($decod_editClave !== $decod_confirmarClave) {
-                return redirect($referer);
+                $response['success'] = false;
+                $response['message'] = "Las claves no coinciden. Por favor, inténtelo de nuevo.";
+                echo json_encode($response);
+                return;
             }
     
             $claveEncriptada = sha1($decod_editClave);
         }
 
         $this->UsuarioModel->actualizarUsuario($id_usuario, $nuevoRol, $nuevoUsuario, $claveEncriptada, $fecha_mod, $usuario_mod);
-        return redirect('Usuarios');
+        $response['success'] = true;
+        $response['message'] = "Usuario actualizado exitosamente.";
+        echo json_encode($response);
+        //return redirect('Usuarios');
     }
 }
