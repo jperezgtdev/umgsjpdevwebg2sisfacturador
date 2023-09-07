@@ -96,7 +96,7 @@ public function crear_factura() {
             'errors' => $errores
         );
         echo json_encode($respuesta);
-        return; // Terminar la ejecución aquí sin continuar con la creación de la factura y sus detalles
+        return; 
     }
 
     $data_factura = array(
@@ -129,9 +129,9 @@ public function crear_factura() {
 
     $this->db->trans_commit();
     $response['success'] = true;
-    $response['message'] = "Usuario creado exitosamente.";
+    $response['message'] = "Factura Creada Exitosamente.";
     echo json_encode($response);
-    //redirect('ConsultaFactura');
+   
 }	
 
 
@@ -169,7 +169,6 @@ public function facturaPdf($id_factura) {
     $output = $this->dompdf->output();
     $pdfFileName = 'factura_' . $id_factura . '.pdf';
 
-    // Enviar el contenido PDF al cliente
     header('Content-type: application/pdf');
     header("Content-Disposition: inline; filename=$pdfFileName");
     header('Content-Transfer-Encoding: binary');
